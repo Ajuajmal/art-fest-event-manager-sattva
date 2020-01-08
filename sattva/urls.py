@@ -14,8 +14,43 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
+from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.views.static import serve
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from events import views as home_views
+from accounts import views as accounts_views
+from dashboard import views as dash_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('dash/', dash_views.dashviews, name='dashboard'),
+    path('signup/', accounts_views.signup, name='signup'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('profile/update/account', accounts_views.update_profile, name='update_profile'),
+    path('profile/update/password', auth_views.PasswordChangeView.as_view(template_name='password_change.html'), name='change_password'),
+    path('profile/update/password/done', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+    path('reset/',
+        auth_views.PasswordResetView.as_view(
+            template_name='password_reset.html',
+            email_template_name='password_reset_email.html',
+            subject_template_name='password_reset_subject.txt'
+        ),
+        name='password_reset'),
+    path('reset/done',
+        auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
+        name='password_reset_done'),
+    path('reset/complete',
+        auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
+        name='password_reset_complete'),
+    path('reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
+        name='password_reset_confirm'),
+    path('', home_views.homeviews, name='home'),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 ]

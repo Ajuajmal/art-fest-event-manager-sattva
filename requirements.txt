@@ -7,3 +7,9 @@ dj-database-url
 
 #widget_tweaks
 django-widget-tweaks
+
+#Image upload
+Pillow
+
+#Rich editor
+django-ckeditor

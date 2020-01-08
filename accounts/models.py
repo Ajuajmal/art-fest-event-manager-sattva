@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
 from django.utils import timezone
+from django.core.validators import RegexValidator
+
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -46,12 +48,14 @@ SEM = (
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.IntegerField(choices=ROLE, default=4)
+    role = models.IntegerField(choices=ROLE, default=0)
     branch = models.IntegerField(choices=BRANCH, default=7)
     semester = models.IntegerField(choices=SEM, default=8)
     profile = models.ImageField(upload_to=user_directory_path, default='profile.png',help_text="Profile Picture")
-    contact = models.IntegerField(max_length=10, blank=True, default="Mobile Number")
+    phone_regex = RegexValidator(regex=r'^[0-9]{10}$', message="Phone number must be entered in the format: '999999999'. Up to 10 digits allowed.")
+    contact = models.CharField(validators=[phone_regex], max_length=10, blank=True)
     location = models.CharField(max_length=30, blank=True, default="CUCEK", help_text="eg:- College Name, organization name ..etc")
+
     def __str__(self):
         return self.user.username
 
