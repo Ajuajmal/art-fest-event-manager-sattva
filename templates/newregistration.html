@@ -1,0 +1,43 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% block stylesheet %}
+{% endblock %}
+{% block body %}
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-user">
+              <div class="card-header">
+                <h5 class="card-title">Add New Registraion</h5>
+              </div>
+              <div class="card-body">
+                <form method="post" novalidate>
+                  {% csrf_token %}
+                  <div class="row">
+                    {% include 'includes/form_dash.html' %}
+                  </div>
+                  <div class="row">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round">Add Entry</button>
+                    </div>
+                  </div>
+                </form>
+                {% if messages %}
+                  {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success alert-dismissible fade show">
+                  <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="nc-icon nc-simple-remove"></i>
+                  </button>
+                  <span>
+                    <b> {{ message }}</b> </span>
+                </div>
+                {% endif %}
+                {% endfor %}
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

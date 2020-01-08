@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
     'ckeditor_uploader',
+    'django_tables2',
 
 
     'accounts',
@@ -101,6 +102,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },

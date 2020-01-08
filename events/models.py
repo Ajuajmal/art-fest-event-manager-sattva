@@ -24,9 +24,15 @@ VENUE = (
     (7, "Stage 5"),
     (8, "Stage 6"),
 )
+
+EVENTTYPE = (
+    (0,"Individual"),
+    (1,"Group"),
+)
 class Event(models.Model):
     scheduler = models.ForeignKey(User, on_delete= models.CASCADE, related_name="event_auth")
     name = models.CharField(max_length=200)
+    eventtype = models.IntegerField(choices=EVENTTYPE, default=0)
     date = models.DateTimeField(blank=True, null=True)
     updated_on = models.DateTimeField(default=timezone.now)
     venue = models.IntegerField(choices=VENUE, default=1)
@@ -69,9 +75,9 @@ class Participant(models.Model):
     branch = models.IntegerField(choices=BRANCH, default=7)
     semester = models.IntegerField(choices=SEM, default=8)
     regnumber_regex = RegexValidator(regex=r'^[0-9]{8}$', message="reg number must be entered in the format: '12180222'. Up to 8 digits allowed.")
-    regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=True)
-    phone_regex = RegexValidator(regex=r'^[0-9]{10}$', message="Phone number must be entered in the format: '999999999'. Up to 10 digits allowed.")
-    contact = models.CharField(validators=[phone_regex], max_length=10, blank=True)
+    regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=False, default='')
+    phone_regex = RegexValidator(regex=r'^[0-9]{10}$', message="Phone number must be entered in the format: '9876543210'. 10 digits .")
+    contact = models.CharField(validators=[phone_regex], max_length=10, blank=False, default='')
     updated_on = models.DateTimeField(default=timezone.now)
     payment = models.BooleanField(default=False)
 
@@ -80,11 +86,20 @@ class Participant(models.Model):
 
     def clean(self):
         is_new = True if not self.id else False
+        flagind = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__eventtype=0).count()
+        flaggrp = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__eventtype=1).count()
+        ev = self.event
+        type = Event.objects.get(name=ev)
         if is_new:
-            if self.__class__.objects.filter(regnumber=self.regnumber).count() < 4:
-                print("ready")
-            else:
-                raise forms.ValidationError(" already exists 4 entry")
+            if  flagind < 5:
+                print("Eligble for Individual Event Registraion")
+            elif type.eventtype==0:
+                raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Ind events, Check the person status here ")
+            if flaggrp < 5:
+                print("Eligble for Group Event Registraion")
+            elif type.eventtype==1:
+                raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Group events, Check the person status here ")
+
             if self.__class__.objects.filter(branch=self.branch).filter(event=self.event).count() >= self.event.max_participants:
                 raise forms.ValidationError("max 4 Participant only")
         if self.payment == True:

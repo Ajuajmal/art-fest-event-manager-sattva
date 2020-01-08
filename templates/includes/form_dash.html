@@ -1,0 +1,40 @@
+{% load form_tags widget_tweaks %}
+{% load static %}
+{% block stylesheet %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<div class="col-md-12">
+  <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+      <i class="nc-icon nc-simple-remove"></i>
+    </button>
+    <span>
+      <b> {{ error }}</b> </span>
+  </div>
+
+</div>
+
+  {% endfor %}
+{% endif %}
+
+{% for field in form %}
+<div class="col-md-6 pr-1">
+  <div class="form-group">
+    {{ field.label_tag }}
+    {% render_field field class=field|input_class %}
+    {% for error in field.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+    {% endfor %}
+    {% if field.help_text %}
+      <small class="form-text text-muted">
+        {{ field.help_text|safe }}
+      </small>
+    {% endif %}
+  </div>
+  </div>
+{% endfor %}

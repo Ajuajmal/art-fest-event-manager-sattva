@@ -61,18 +61,22 @@ The above copyright notice and this permission notice shall be included in all c
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
-            <a href="./dashboard.html">
+
+          <li {% if request.resolver_match.url_name == 'dashboard' %} class="active " {% endif %}>
+
+            <a href="{% url 'dashboard' %}">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
-            <a href="./icons.html">
+          {% if user.is_staff %}
+          <li {% if request.resolver_match.url_name == 'newregistration' %} class="active " {% endif %}>
+            <a href="{% url 'newregistration' %}">
               <i class="nc-icon nc-simple-add"></i>
               <p>New Registration</p>
             </a>
           </li>
+          {% endif %}
           <li>
             <a href="./map.html">
               <i class="nc-icon nc-pin-3"></i>
