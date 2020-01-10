@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_tables2',
-
+    'django_filters',
 
     'accounts',
     'events',

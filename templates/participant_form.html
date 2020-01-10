@@ -3,6 +3,7 @@
 {% block stylesheet %}
 {% endblock %}
 {% block body %}
+
       <div class="content">
         <div class="row">
           <div class="col-md-12">
@@ -11,10 +12,12 @@
                 <h5 class="card-title">Add New Registraion</h5>
               </div>
               <div class="card-body">
-                <form method="post" novalidate>
+                <form method="post" id="eventForm" data-cities-url="{% url 'ajax_load_events' %}" novalidate>
                   {% csrf_token %}
                   <div class="row">
-                    {% include 'includes/form_dash.html' %}
+                    <table>
+                      {% include 'includes/form_dash.html' %}
+   </table>
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
@@ -22,6 +25,26 @@
                     </div>
                   </div>
                 </form>
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+                <script>
+                  $("#id_category").change(function () {
+                    var url = $("#eventForm").attr("data-cities-url");
+                    var categoryId = $(this).val();
+
+                    $.ajax({
+                      url: url,
+                      data: {
+                        'category': categoryId
+                      },
+                      success: function (data) {
+                        $("#id_event").html(data);
+                      }
+                    });
+
+                  });
+                </script>
+
                 {% if messages %}
                   {% for message in messages %}
                   {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}

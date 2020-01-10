@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Participant,Event
+from .models import Participant,Event,Category
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'max_participants')
@@ -13,9 +13,12 @@ class ParticipantAdmin(admin.ModelAdmin):
     list_filter = ('event','regnumber','branch')
     search_fields = ['name', 'regnumber', 'event']
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 
 
 
+admin.site.register(Category,CategoryAdmin)
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Event,EventAdmin)

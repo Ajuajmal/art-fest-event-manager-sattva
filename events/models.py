@@ -29,7 +29,16 @@ EVENTTYPE = (
     (0,"Individual"),
     (1,"Group"),
 )
+class Category(models.Model):
+    name = models.CharField(max_length=50,default='None')
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ['-name']
+    def __str__(self):
+        return self.name
+
 class Event(models.Model):
+    category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
     scheduler = models.ForeignKey(User, on_delete= models.CASCADE, related_name="event_auth")
     name = models.CharField(max_length=200)
     eventtype = models.IntegerField(choices=EVENTTYPE, default=0)
@@ -42,7 +51,7 @@ class Event(models.Model):
     slug = models.SlugField(max_length=200, unique=True, help_text='WARNING : Use the same slug for while creating a Terms about events')
 
     class Meta:
-        verbose_name_plural = "Categories"
+        verbose_name_plural = "Events"
         ordering = ['-updated_on']
     def __str__(self):
         return self.name
@@ -70,6 +79,7 @@ SEM = (
 )
 
 class Participant(models.Model):
+    category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
     event = models.ForeignKey(Event, on_delete= models.CASCADE, related_name='events_listed')
     name = models.CharField(max_length=200)
     branch = models.IntegerField(choices=BRANCH, default=7)
