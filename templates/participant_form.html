@@ -2,17 +2,31 @@
 {% load static %}
 {% block stylesheet %}
 {% endblock %}
+{% block nav%}Event Registraion{% endblock %}
 {% block body %}
-
+{% if user.profile.role == 2 or user.is_staff %}
       <div class="content">
         <div class="row">
           <div class="col-md-12">
             <div class="card card-user">
               <div class="card-header">
-                <h5 class="card-title">Add New Registraion</h5>
+                <h5 class="card-title">Add New Registraion  </h5>
               </div>
               <div class="card-body">
-                <form method="post" id="eventForm" data-cities-url="{% url 'ajax_load_events' %}" novalidate>
+                {% if messages %}
+                  {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success alert-dismissible fade show">
+                  <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="nc-icon nc-simple-remove"></i>
+                  </button>
+                  <span>
+                    <b> {{ message }}</b> </span>
+                </div>
+                {% endif %}
+                {% endfor %}
+              {% endif %}
+                <form method="post" id="eventForm" data-events-url="{% url 'ajax_load_events' %}" novalidate>
                   {% csrf_token %}
                   <div class="row">
                     <table>
@@ -28,8 +42,11 @@
                 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
                 <script>
+                  $('#id_branch').val("{{ request.user.profile.branch }}");
+                  $( "#id_branch" ).hide();
+                  $( "label[for=id_branch]" ).hide();
                   $("#id_category").change(function () {
-                    var url = $("#eventForm").attr("data-cities-url");
+                    var url = $("#eventForm").attr("data-events-url");
                     var categoryId = $(this).val();
 
                     $.ajax({
@@ -45,22 +62,47 @@
                   });
                 </script>
 
-                {% if messages %}
-                  {% for message in messages %}
-                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                <div class="alert alert-success alert-dismissible fade show">
-                  <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="nc-icon nc-simple-remove"></i>
-                  </button>
-                  <span>
-                    <b> {{ message }}</b> </span>
-                </div>
-                {% endif %}
-                {% endfor %}
-              {% endif %}
+
               </div>
             </div>
           </div>
         </div>
       </div>
+      {% else %}
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Warning</h5>
+                <p class="card-category">
+
+                </p>
+              </div>
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="card card-plain">
+                      <div class="card-header">
+                        <h5 class="card-title">Unauthorised</h5>
+                      </div>
+                      <div class="card-body">
+
+                        <div class="alert alert-danger alert-dismissible fade show">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span>
+                            <b> Access Denied </b> </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
 {% endblock %}

@@ -18,11 +18,14 @@ class SignUpForm(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
     class Meta:
         model = User
         fields = ('first_name', 'last_name',)
 
 class ProfileForm(forms.ModelForm):
+    contact = forms.CharField(required=True)
     class Meta:
         model = Profile
         fields = ('contact', 'branch', 'semester')

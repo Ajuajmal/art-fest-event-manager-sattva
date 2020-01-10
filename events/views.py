@@ -12,20 +12,27 @@ from django.urls import reverse_lazy
 
 from .forms import ParticipantForm
 from .models import Participant,Event
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 def homeviews(request):
     return render(request, 'home.html')
 
 
 
-class ParticipantCreateView(CreateView):
+class ParticipantCreateView(SuccessMessageMixin,LoginRequiredMixin, CreateView):
     model = Participant
     form_class = ParticipantForm
     template_name = 'participant_form.html'
     success_url = reverse_lazy('newregistration')
+    success_message = "%(event)s registration for %(name)s  was successfully Processed"
+    def form_valid(self, form):
+        form.instance.branch = self.request.user.profile.branch
+        return super(ParticipantCreateView, self).form_valid(form)
 @login_required
 @transaction.atomic
 def newreg(request):
+    user = get_object_or_404(User, username=username)
     if request.method == 'POST':
         form = ParticipantForm(request.POST)
         if form.is_valid():
@@ -36,7 +43,7 @@ def newreg(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = ParticipantForm()
-    return render(request, 'participant_form.html', {'form': form})
+    return render(request, 'participant_form.html', {'form': form, 'user': user})
 
 def load_events(request):
     category_id = request.GET.get('category')

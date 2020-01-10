@@ -8,13 +8,20 @@
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">Update Your Sattva Profile</h3>
-        <form method="post" novalidate>
+        <form method="post">
           {% csrf_token %}
           {% include 'includes/update_form.html' %}
           <button type="submit" class="btn btn-primary btn-block">Update account</button>
         </form>
-
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+          {% if user.profile.role == 2 %}
+          $('#id_branch').hide();
+          $( "#id_semester" ).hide();
+          $( "label[for=id_branch]" ).hide();
+          $( "label[for=id_semester]" ).hide();
+          {% endif %}
+          </script>
       </div>
     </div>
     <div class="card">

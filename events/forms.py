@@ -2,12 +2,13 @@ from django import forms
 from .models import Participant,Event,Category
 from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django.contrib.auth.models import User
 
 
 class ParticipantForm(forms.ModelForm):
     class Meta:
         model = Participant
-        fields = ('category','event', 'name', 'regnumber','contact', 'semester', 'branch',)
+        fields = ('category','event', 'name', 'regnumber','semester','slot','branch')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

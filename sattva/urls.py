@@ -27,7 +27,7 @@ from dashboard import views as dash_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dash/', dash_views.dashviews, name='dashboard'),
+    path('', dash_views.dashviews, name='dashboard'),
     path('dash/new', event_views.ParticipantCreateView.as_view(), name='newregistration'),
     path('dash/list/', dash_views.ParticipantListView.as_view(), name='list'),
     #path('dash/list/', dash_views.person_list, name='list'),
@@ -53,7 +53,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/',
         auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
         name='password_reset_confirm'),
-    path('', event_views.homeviews, name='home'),
+    #path('', event_views.homeviews, name='home'),
     path('dash/ajax/load-events/', event_views.load_events, name='ajax_load_events'),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 

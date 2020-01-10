@@ -9,7 +9,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ('name', 'event', 'contact','payment')
+    list_display = ('name', 'branch','event','payment')
     list_filter = ('event','regnumber','branch')
     search_fields = ['name', 'regnumber', 'event']
 

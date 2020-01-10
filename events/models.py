@@ -29,6 +29,7 @@ EVENTTYPE = (
     (0,"Individual"),
     (1,"Group"),
 )
+
 class Category(models.Model):
     name = models.CharField(max_length=50,default='None')
     class Meta:
@@ -40,6 +41,7 @@ class Category(models.Model):
 class Event(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
     scheduler = models.ForeignKey(User, on_delete= models.CASCADE, related_name="event_auth")
+    eventid =models.CharField(max_length=20, default="EW")
     name = models.CharField(max_length=200)
     eventtype = models.IntegerField(choices=EVENTTYPE, default=0)
     date = models.DateTimeField(blank=True, null=True)
@@ -48,7 +50,9 @@ class Event(models.Model):
     cover = models.ImageField(upload_to=user_directory_path, default='defaultevent.jpg')
     about = RichTextUploadingField()
     max_participants = models.IntegerField(default=0)
+    slot =  models.IntegerField(default=1)
     slug = models.SlugField(max_length=200, unique=True, help_text='WARNING : Use the same slug for while creating a Terms about events')
+
 
     class Meta:
         verbose_name_plural = "Events"
@@ -78,28 +82,38 @@ SEM = (
     (8, "Semester"),
 )
 
+
+SLOT = (
+    (1, "SLOT 1"),
+    (2, "SLOT 2"),
+    (3, "SLOT 3"),
+    (4, "SLOT 4"),
+    (5, "SLOT 5"),
+    )
 class Participant(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
     event = models.ForeignKey(Event, on_delete= models.CASCADE, related_name='events_listed')
+    slot = models.IntegerField(choices=SLOT, default=1)
     name = models.CharField(max_length=200)
     branch = models.IntegerField(choices=BRANCH, default=7)
     semester = models.IntegerField(choices=SEM, default=8)
     regnumber_regex = RegexValidator(regex=r'^[0-9]{8}$', message="reg number must be entered in the format: '12180222'. Up to 8 digits allowed.")
     regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=False, default='')
-    phone_regex = RegexValidator(regex=r'^[0-9]{10}$', message="Phone number must be entered in the format: '9876543210'. 10 digits .")
-    contact = models.CharField(validators=[phone_regex], max_length=10, blank=False, default='')
     updated_on = models.DateTimeField(default=timezone.now)
     payment = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-updated_on']
 
+
     def clean(self):
         is_new = True if not self.id else False
         flagind = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__eventtype=0).count()
         flaggrp = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__eventtype=1).count()
-        ev = self.event
-        type = Event.objects.get(name=ev)
+        if self.event_id == None:
+            raise forms.ValidationError(" error value undefined ")
+        ev = self.event_id
+        type = Event.objects.get(id=ev)
         if is_new:
             if  flagind < 5:
                 print("Eligble for Individual Event Registraion")
@@ -109,11 +123,20 @@ class Participant(models.Model):
                 print("Eligble for Group Event Registraion")
             elif type.eventtype==1:
                 raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Group events, Check the person status here ")
+            if self.slot <= self.event.slot:
+                print("Correct Number of Slots Chosen")
+            else:
+                raise forms.ValidationError("Hey , maximum number of slots available for the {} event is {}. Please select the solt {} or less ".format(self.event,self.event.slot, self.event.slot))
+            #duplicate Error
+            if self.__class__.objects.filter(branch=self.branch).filter(event=self.event).filter(regnumber=self.regnumber).count() <1:
+                print("New Duplicate Entry Found")
+            else:
+                raise forms.ValidationError("Duplicate Entry : Hey , {} was already registered for the event {}".format(self.name,self.event))
+            if self.__class__.objects.filter(branch=self.branch).filter(event=self.event).filter(slot=self.slot).count() >= self.event.max_participants:
+                raise forms.ValidationError("Hey, Your branch has already registerd maximum number of participant(s)({}) for the {} event with slot number {}. Slot Number {} is filled, try other slot numbers. \n For {} , you can try the slot number upto {}".format(self.event.max_participants,self.event,self.slot,self.slot,self.event,self.event.slot))
 
-            if self.__class__.objects.filter(branch=self.branch).filter(event=self.event).count() >= self.event.max_participants:
-                raise forms.ValidationError("max 4 Participant only")
         if self.payment == True:
-            payupdate = self.__class__.objects.filter(branch=self.branch).filter(event=self.event)
+            payupdate = self.__class__.objects.filter(branch=self.branch).filter(event=self.event).filter(slot=self.slot)
             payupdate.update(payment=True)
 
     def publish(self):

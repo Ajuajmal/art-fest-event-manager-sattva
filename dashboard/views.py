@@ -11,17 +11,18 @@ from django.utils import timezone
 from django_tables2 import SingleTableView,LazyPaginator
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from events.models import Participant
 from .tables import ParticipantTable
 
-@login_required
-@transaction.atomic
+
 def dashviews(request):
     return render(request, 'dashboard_base.html')
 
 
 
-class ParticipantListView(SingleTableView):
+
+class ParticipantListView(LoginRequiredMixin,SingleTableView):
     model = Participant
     table_class = ParticipantTable
     template_name = 'tables.html'
