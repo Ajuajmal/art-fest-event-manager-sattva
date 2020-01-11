@@ -13,3 +13,9 @@ Pillow
 
 #Rich editor
 django-ckeditor
+
+
+
+django-filter==2.2.0
+django-tables2==2.2.1
+
