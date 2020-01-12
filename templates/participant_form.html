@@ -2,7 +2,7 @@
 {% load static %}
 {% block stylesheet %}
 {% endblock %}
-{% block nav%}Event Registraion{% endblock %}
+{% block nav%}Event Registration{% endblock %}
 {% block body %}
 {% if user.profile.role == 2 or user.is_staff %}
       <div class="content">
@@ -10,7 +10,7 @@
           <div class="col-md-12">
             <div class="card card-user">
               <div class="card-header">
-                <h5 class="card-title">Add New Registraion  </h5>
+                <h5 class="card-title">Add New Registration  </h5>
               </div>
               <div class="card-body">
                 {% if messages %}

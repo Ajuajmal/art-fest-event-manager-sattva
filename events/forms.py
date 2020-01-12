@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class ParticipantForm(forms.ModelForm):
     class Meta:
         model = Participant
-        fields = ('category','event', 'name', 'regnumber','semester','slot','branch')
+        fields = ('category','event','participant_type', 'name', 'regnumber','semester','slot','branch')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
