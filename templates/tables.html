@@ -5,7 +5,26 @@
 
 {% endblock %}
 {% block body %}
-{% if user.profile.role == 2 or user.is_staff %}
+
+
+{% if user.profile.role == 2 %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Participant List</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+{% render_table table %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% endif %}
+
+{%  if user.is_staff %}
       <div class="content">
         <div class="row">
           <div class="col-md-12">
@@ -21,8 +40,8 @@
             </div>
           </div>
 
-
           {% else %}
+
           <div class="content">
             <div class="row">
               <div class="col-md-12">
@@ -59,5 +78,5 @@
               </div>
             </div>
           {% endif %}
-  
+
     {% endblock %}

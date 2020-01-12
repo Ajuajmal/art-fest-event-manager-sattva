@@ -1,0 +1,63 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% block stylesheet %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+{% endblock %}
+{% block body %}
+
+
+{% if user.profile.role == 2 or user.is_staff %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Participant List</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+{% render_table table %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Warning</h5>
+              <p class="card-category">
+
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div class="card card-plain">
+                    <div class="card-header">
+                      <h5 class="card-title">Unauthorised</h5>
+                    </div>
+                    <div class="card-body">
+
+                      <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span>
+                          <b> Access Denied </b> </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endif %}
+{% endblock %}

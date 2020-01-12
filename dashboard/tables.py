@@ -7,3 +7,9 @@ class ParticipantTable(tables.Table):
         model = Participant
         template_name = "django_tables2/bootstrap.html"
         fields = ("select","name",'branch','event','payment' )
+
+class ParticipantTable(tables.Table):
+    class Meta:
+        model = Participant
+        template_name = "django_tables2/bootstrap.html"
+        fields = ("name",'semester','event','slot','payment' )

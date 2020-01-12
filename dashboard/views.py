@@ -28,9 +28,22 @@ class ParticipantListView(LoginRequiredMixin,SingleTableView):
     template_name = 'tables.html'
     paginator_class = LazyPaginator
 
-def person_list(request):
-    table = ParticipantTable(Participant.objects.filter(branch__in=[0,1,2,3,4,5]).group_by('-name'))
+@login_required
+def participant_list(request):
+    table = ParticipantTable(Participant.objects.filter(branch=request.user.profile.branch).order_by('event'))
+    if request.user.is_staff:
+        table = ParticipantTable(Participant.objects.all().order_by('event'))
     table.paginate(page=request.GET.get("page", 1), per_page=10)
+    return render(request, "captian_list.html", {
+        "table": table
+    })
+def payment_list(request):
+    table = ParticipantTable(Participant.objects.filter(branch__in=[0,1,2]).order_by('slot'))
     return render(request, "tables.html", {
         "table": table
     })
+def payment_lists(request):
+        table = Participant.objects.filter(branch = 0).order_by('slot').order_by('event')
+        return render(request, "pay_table.html", {
+                "table": table
+            })
