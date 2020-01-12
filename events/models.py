@@ -69,7 +69,7 @@ BRANCH = (
     (3, "EEE"),
     (4, "IT"),
     (5, "ME"),
-    (5, "MCA"),
+    (6, "MCA"),
     (7, "Branch/Dept")
 )
 
