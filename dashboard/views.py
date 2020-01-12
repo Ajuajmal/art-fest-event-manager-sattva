@@ -13,7 +13,7 @@ from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from events.models import Participant
-from .tables import ParticipantTable
+from .tables import ParticipantTable,ParticipantTableCapt,ParticipantTableAdmin
 
 
 def dashviews(request):
@@ -30,9 +30,9 @@ class ParticipantListView(LoginRequiredMixin,SingleTableView):
 
 @login_required
 def participant_list(request):
-    table = ParticipantTable(Participant.objects.filter(branch=request.user.profile.branch).order_by('event'))
+    table = ParticipantTableCapt(Participant.objects.filter(branch=request.user.profile.branch).order_by('event'))
     if request.user.is_staff:
-        table = ParticipantTable(Participant.objects.all().order_by('event'))
+        table = ParticipantTableAdmin(Participant.objects.all().order_by('event'))
     table.paginate(page=request.GET.get("page", 1), per_page=10)
     return render(request, "captian_list.html", {
         "table": table

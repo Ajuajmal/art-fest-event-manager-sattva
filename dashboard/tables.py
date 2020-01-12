@@ -8,8 +8,14 @@ class ParticipantTable(tables.Table):
         template_name = "django_tables2/bootstrap.html"
         fields = ("select","name",'branch','event','payment' )
 
-class ParticipantTable(tables.Table):
+class ParticipantTableCapt(tables.Table):
     class Meta:
         model = Participant
         template_name = "django_tables2/bootstrap.html"
-        fields = ("name",'semester','event','slot','payment' )
+        fields = ("name",'semester','participant_type','event','slot','payment' )
+
+class ParticipantTableAdmin(tables.Table):
+    class Meta:
+        model = Participant
+        template_name = "django_tables2/bootstrap.html"
+        fields = ("name",'branch','semester','participant_type','event','slot','payment' )
