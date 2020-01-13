@@ -47,5 +47,5 @@ def newreg(request):
 
 def load_events(request):
     category_id = request.GET.get('category')
-    events = Event.objects.filter(category_id=category_id).order_by('name')
+    events = Event.objects.filter(category_id=category_id).filter(venue=1).order_by('name')
     return render(request, 'event_dropdown_list_options.html', {'events': events})
