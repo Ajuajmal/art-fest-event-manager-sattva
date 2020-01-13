@@ -91,8 +91,8 @@ SLOT = (
     )
 
 PARTICIPANT_TYPE =(
-    (0, "Main Participant's"),
-    (1, "Accompanying Participants"),
+    (0, "Main Participant"),
+    (1, "Accompanying Participant"),
     )
 class Participant(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True)
