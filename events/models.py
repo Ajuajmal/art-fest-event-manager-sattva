@@ -108,7 +108,7 @@ class Participant(models.Model):
     regnumber_regex = RegexValidator(regex=r'^[0-9]{8}$', message="reg number must be entered in the format: '12180222'. Up to 8 digits allowed.")
     regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=False, default='')
     updated_on = models.DateTimeField(default=timezone.now)
-    deletable = models.BooleanField(default=False)
+    deletable = models.BooleanField(default=True)
     payment = models.BooleanField(default=False)
 
     class Meta:
