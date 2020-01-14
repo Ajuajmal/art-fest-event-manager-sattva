@@ -30,9 +30,9 @@ class ParticipantListView(LoginRequiredMixin,SingleTableView):
 
 @login_required
 def participant_list(request):
-    table = ParticipantTableCapt(Participant.objects.filter(branch=request.user.profile.branch).filter(deletable=False).order_by('event'))
+    table = ParticipantTableCapt(Participant.objects.filter(branch=request.user.profile.branch).filter(deletable=True).order_by('event'))
     if request.user.is_staff:
-        table = ParticipantTableAdmin(Participant.objects.filter(deletable=False).order_by('event'))
+        table = ParticipantTableAdmin(Participant.objects.filter(deletable=True).order_by('event'))
     return render(request, "captian_list.html", {
         "table": table
     })
