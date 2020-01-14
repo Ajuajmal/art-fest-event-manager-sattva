@@ -1,0 +1,76 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block body %}
+
+{% block js %}
+<script src="{% static '/js/participant.js' %}"></script>
+<script src="{% static '/js/jquery-3.1.1.min.js' %}"></script>
+{% endblock %}
+{% if user.profile.role == 2 or user.is_staff %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Participant List</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="participant-table">
+              <thead>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Branch
+                </th>
+                <th>
+                  Semester
+                </th>
+                <th>
+                  Event
+                </th>
+              </thead>
+              <tbody>
+                {% for participant in participants %}
+                  <tr>
+                    <td>{{ participant.name }}</td>
+                    <td>{{ participant.get_branch_display }}</td>
+                    <td>{{ participant.get_semester_display }}</td>
+                    <td>{{ participant.event }}</td>
+                    <td>
+                      <button type="button"
+                                    class="btn btn-danger btn-sm js-delete-participant"
+                                    data-url="{% url 'participant_delete' participant.id %}">
+                              <span class="glyphicon glyphicon-trash"></span> Delete
+                            </button>
+    </td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="7" class="text-center bg-warning">No Participant</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="modal fade" id="modal-participant">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endif %}
+
+
+
+
+
+    {% endblock %}

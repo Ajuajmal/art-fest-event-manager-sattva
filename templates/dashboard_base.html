@@ -93,6 +93,12 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Participant Lists</p>
             </a>
           </li>
+          <li {% if request.resolver_match.url_name == 'plist' %} class="active " {% endif %}>
+            <a href="{% url 'plist' %}">
+              <i class="nc-icon nc-simple-remove"></i>
+              <p>Delete Incorrect Registraions</p>
+            </a>
+          </li>
           {% endif %}
           <!--<li>
             <a href="./map.html">

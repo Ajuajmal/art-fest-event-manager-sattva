@@ -1,157 +1,138 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block stylesheet %}
-{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html>
 
-<div class="container">
+    <head>
+        <meta charset="utf-8">
+        <title>Sattva 2020</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static '/css/homestyle.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/icons/flaticon.css' %}">
+        <script type="text/javascript">
 
-  <!-- Jumbotron Header -->
-  <div class="wow fadeIn">
+            function toggletab(tabnum)
+            {
+                document.getElementsByClassName('active-tab')[0].classList.toggle('active-tab');
+                document.getElementsByClassName('link-tab')[tabnum].classList.toggle('active-tab');
 
-  <header style="background-color:#fff !important"class="jumbotron my-4 hoverable">
-    {% for post in posts %}
-    <h1 class="display-3">{{ post.introtitle }}</h1>
-    <p class="lead">{{ post.introcontent|safe }}</p>
-    {% endfor %}
-  </header>
-</div>
-  <div class="badge badge-primary text-wrap" style="">
-    Recent Updates</div>
-  <!-- Page Features -->
-  <div class="row text-center">
+                var t0 = document.getElementById('tab-home');
+                var t1 = document.getElementById('tab-results');
+                var t2 = document.getElementById('tab-points');
 
-    {% for feature in features %}
+                switch(tabnum)
+                {
+                    case 0:
+                        t0.style.left = '0vw';
+                        t0.style.width = '100vw';
+                        t1.style.left = '100vw';
+                        t1.style.width = '0vw';
+                        t2.style.left = '100vw';
+                        t2.style.width = '0vw';
+                    break;
+                    case 1:
+                        t0.style.left = '0vw';
+                        t0.style.width = '0vw';
+                        t1.style.left = '0vw';
+                        t1.style.width = '100vw';
+                        t2.style.left = '100vw';
+                        t2.style.width = '0vw';
+                        document.getElementById('search-results').focus();
+                    break;
+                    case 2:
+                        t0.style.left = '0vw';
+                        t0.style.width = '0vw';
+                        t1.style.left = '0vw';
+                        t1.style.width = '0vw';
+                        t2.style.left = '0vw';
+                        t2.style.width = '100vw';
+                    break;
+                    default: break;
+                }
+            }
 
-    <div class="wow fadeIn">
-    <!-- News jumbotron -->
-    <div style="background-color:#fff !important" class="jumbotron text-center hoverable p-4">
-      <!-- Grid row -->
-      <div class="row">
+        </script>
+    </head>
 
-        <!-- Grid column -->
-        <div class="col-md-4 offset-md-1 mx-3 my-3">
+    <body>
 
-          <!-- Featured image -->
-          <div class="view overlay">
-            <img src="{{ feature.cover.url }}" class="img-fluid" alt=" image for first version of blog listing">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-        </div>
-        <div class="col-md-7 text-md-left ml-3 mt-3">
-
-          <!-- Excerpt -->
-          <a href="#!" class="green-text">
-            <h6 class="h6 pb-1"><i class="fas fa-{{ feature.blogtype }} pr-1"></i>{{ feature.blogtype }}</h6>
-          </a>
-
-          <h4 class="h4 mb-4">{{ feature.title }}</h4>
-
-          <p class="font-weight-normal">{{ feature.content|safe|slice:"500" }}</p>
-          <p class="font-weight-normal">by <a><strong>{{ feature.author }}</strong></a>, {{ feature.updated_on }}</p>
-
-          <a href="{% url 'post_detail' feature.slug %}" class="btn btn-success">Read more</a>
-        </div>
-      </div>
-    </div>
-</div>
-    {% endfor %}
-
-
-
-  </div>
-
-  <section class="text-center my-5">
-
-
-    <h2 class="h1-responsive font-weight-bold text-center my-5">Our projects</h2>
-
-    <p class="grey-text text-center w-responsive mx-auto mb-5">We love Open Source and we promote it to the fullest. Here are few Open Source projects we wish to bring to life. We are expecting your contributions to the projects.</p>
-
-    <div class="row">
-
-
-      {% for project in projects %}
-      <div class="col-md-6 mb-4">
-        <div class="card card-image" style="background-image: url({{ project.cover.url }});">
-          <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4 rounded">
+        <nav>
             <div>
-              <h6 class="green-text">
-                <i class="fas fa-chart-pie"></i>
-                <strong> {{ project.category }}</strong>
-              </h6>
-              <h3 class="py-3 font-weight-bold">
-                <strong>{{ project.name }}</strong>
-              </h3>
-              <p class="pb-3">{{ project.description|safe }}
-              </p>
-              <a class="btn btn-success btn-rounded btn-md disabled"><i class="fas fa-clone left"></i> View project</a>
+            <a href="#" onclick="toggletab(0);" class="link-tab active-tab">Home</a>
+            <a href="#" onclick="toggletab(1);" class="link-tab">Results</a>
+            <a href="#" onclick="toggletab(2);" class="link-tab link-tab-table">Table</a>
             </div>
-          </div>
+        </nav>
+
+
+        <div id="wrapper">
+
+            <!--- home tab body --->
+            <section id="tab-home">
+                <div>
+                    <h1>SATTVA</h1>
+                    <h3>24.01.2020 | 25.01.2020</h3>
+                </div>
+            </section>
+
+            <!--- results tab body --->
+            <section id="tab-results">
+                <div class="search-container">
+                    <i class="flaticon-search"></i>
+                    <input type="text" id="search-results" onchange="searchresults()" placeholder="Search in results">
+                </div>
+
+                <div id="results-container">
+
+                    <article>
+                        <div>
+                            <h4>PROGRAM TITLE</h4>
+                        </div>
+                        <ol type="1">
+                            <li>John Doe</li>
+                            <li>Jane Doe</li>
+                            <li>Robert Dowrey Jr.</li>
+                        </ol>
+                    </article>
+                    <article>
+                        <h4>BIGGER PROGRAM TITLE</h4>
+                        <ol type="1">
+                            <li>Emma Watson</li>
+                            <li>Oliver Twist</li>
+                            <li>Robert Dowrey Jr.</li>
+                        </ol>
+                    </article>
+                    <article>
+                        <div>
+                            <h4>BIGGER PROGRAM TITLE</h4>
+                        </div>
+                        <ol type="1">
+                            <li>Emma Watson</li>
+                            <li>Oliver Twist</li>
+                            <li>Robert Dowrey Jr.</li>
+                        </ol>
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!--- points table tab body --->
+            <section id="tab-points">
+                <div class="branch">
+                    <div class="icon"><i class="flaticon-ce"></i></div>
+                    <div class="name">CIVIL ENGINEERING</div>
+                    <div class="points">0</div>
+                </div>
+                <div class="branch">
+                    <div class="icon"><i class="flaticon-cse"></i></div>
+                    <div class="name">COMPUTER SCIENCE ENGINEERING</div>
+                    <div class="points">0</div>
+                </div>
+            </section>
+
         </div>
-      </div>
-      {% endfor %}
 
+    </body>
 
-    </div>
-
-
-
-  </section>
-  <!--Section: Contact v.2-->
-  <section class="mb-4">
-
-      <!--Section heading-->
-      <h2 class="h1-responsive font-weight-bold text-center my-4">Reach us</h2>
-      <!--Section description-->
-      <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-          a matter of hours to help you.</p>
-
-      <div id='contact' class="row">
-
-          <!--Grid column-->
-          <div class="col-md-9 mb-md-0 mb-5">
-              <form id="contact-form" name="contact-form" method="POST" novalidate>
-
-                {% csrf_token %}
-                {% include 'includes/form.html' %}
-                <button type="submit" class="btn btn-success">Send</button>
-                  <!--Grid row-->
-
-              </form>
-
-              <div class="text-center text-md-left">
-
-              </div>
-              <div class="status"></div>
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-md-3 text-center">
-              <ul class="list-unstyled mb-0">
-                  <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                      <p>SATTVA , CUCEK </p>
-                  </li>
-
-                  <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                      <p>+ 91 *** *** ****</p>
-                  </li>
-
-                  <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                      <p>contact@</p>
-                  </li>
-              </ul>
-          </div>
-          <!--Grid column-->
-
-      </div>
-
-  </section>
-</div>
-
-
-{% endblock %}
+</html>

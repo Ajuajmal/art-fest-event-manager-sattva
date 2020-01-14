@@ -31,6 +31,7 @@ urlpatterns = [
     path('dash/new', event_views.ParticipantCreateView.as_view(), name='newregistration'),
     path('dash/admin/list/', dash_views.ParticipantListView.as_view(), name='list'),
     path('dash/captians/list/', dash_views.participant_list, name='caplist'),
+    path('dash/participants/list', event_views.participant_list, name='plist'),
     #path('dash/list/', dash_views.person_list, name='list'),
     path('signup/', accounts_views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
@@ -56,6 +57,7 @@ urlpatterns = [
         name='password_reset_confirm'),
     #path('', event_views.homeviews, name='home'),
     path('dash/ajax/load-events/', event_views.load_events, name='ajax_load_events'),
+    re_path(r'^dash/(?P<pk>\d+)/delete/$', event_views.participant_delete, name='participant_delete'),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
