@@ -17,36 +17,37 @@
                 
                 var t0 = document.getElementById('tab-home');
                 var t1 = document.getElementById('tab-results');
-                var t2 = document.getElementById('tab-points');
                 
                 switch(tabnum)
                 {
                     case 0:
                         t0.style.left = '0vw';
                         t0.style.width = '100vw';
-                        t1.style.left = '100vw';
-                        t1.style.width = '0vw';
-                        t2.style.left = '100vw';
-                        t2.style.width = '0vw';
+                        t1.style.left = '-100vw';
+                        t1.style.width = '100vw';
                     break;
                     case 1:
-                        t0.style.left = '0vw';
-                        t0.style.width = '0vw';
+                        t0.style.left = '-100vw';
+                        t0.style.width = '100vw';
                         t1.style.left = '0vw';
                         t1.style.width = '100vw';
-                        t2.style.left = '100vw';
-                        t2.style.width = '0vw';
                         document.getElementById('search-results').focus();
                     break;
-                    case 2:
-                        t0.style.left = '0vw';
-                        t0.style.width = '0vw';
-                        t1.style.left = '0vw';
-                        t1.style.width = '0vw';
-                        t2.style.left = '0vw';
-                        t2.style.width = '100vw';
-                    break;
                     default: break;
+                }
+            }
+            
+            function togglepoints(x)
+            {
+                var cont = document.getElementById('points-container');
+                switch(x)
+                {
+                    case 0:
+                        cont.style.top = "-100vh";
+                    break;
+                    case 1:
+                        cont.style.top = "0vh";
+                    break;
                 }
             }
             
@@ -59,7 +60,6 @@
             <div>
             <a href="#" onclick="toggletab(0);" class="link-tab active-tab">Home</a>
             <a href="#" onclick="toggletab(1);" class="link-tab">Results</a>
-            <a href="#" onclick="toggletab(2);" class="link-tab link-tab-table">Table</a>
             </div>
         </nav>
         
@@ -84,9 +84,7 @@
                 <div id="results-container">
         
                     <article>
-                        <div>
-                            <h4>PROGRAM TITLE</h4>
-                        </div>
+                        <h4>PROGRAM TITLE</h4>
                         <ol type="1">
                             <li>John Doe</li>
                             <li>Jane Doe</li>
@@ -102,9 +100,7 @@
                         </ol>
                     </article>
                     <article>
-                        <div>
-                            <h4>BIGGER PROGRAM TITLE</h4>
-                        </div>
+                        <h4>BIGGER PROGRAM TITLE</h4>
                         <ol type="1">
                             <li>Emma Watson</li>
                             <li>Oliver Twist</li>
@@ -116,19 +112,57 @@
                 
             </section>
             
-            <!--- points table tab body --->
-            <section id="tab-points">
-                <div class="branch">
-                    <div class="icon"><i class="flaticon-ce"></i></div>
-                    <div class="name">CIVIL ENGINEERING</div>
-                    <div class="points">0</div>
+            
+            
+            <a id="points-opener" href="#" onclick="togglepoints(1);">POINTS TABLE</a>
+            <div id="points-container">
+                <span><a href="#" onclick="togglepoints(0);">x</a></span>
+                <div id="points-table">
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-ce"></i></span>
+                        <span class="name">CIVIL ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-cse"></i></span>
+                        <span class="name">COMPUTER SCIENCE ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-ece"></i></span>
+                        <span class="name">ELECTRONICS &amp; COMMUNICATION ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-eee"></i></span>
+                        <span class="name">ELECTRICAL &amp; ELECTRONICS ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-it"></i></span>
+                        <span class="name">INFORMATION TECHNOLOGY</span>
+                        <span class="points">0</span>
+                    </article>
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-me"></i></span>
+                        <span class="name">MECHANICAL ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+                    
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-mca"></i></span>
+                        <span class="name">MASTER OF COMPUTER APPLICATIONS</span>
+                        <span class="points">0</span>
+                    </article>
+                    
                 </div>
-                <div class="branch">
-                    <div class="icon"><i class="flaticon-cse"></i></div>
-                    <div class="name">COMPUTER SCIENCE ENGINEERING</div>
-                    <div class="points">0</div>
-                </div>
-            </section>
+            </div>
             
         </div>
         
