@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.db import models
 from django import forms
 from django.contrib.auth.models import User
@@ -6,6 +7,8 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
 import os
 from django.core.validators import RegexValidator
+
+
 
 
 def user_directory_path(instance, filename):
@@ -105,6 +108,7 @@ class Participant(models.Model):
     regnumber_regex = RegexValidator(regex=r'^[0-9]{8}$', message="reg number must be entered in the format: '12180222'. Up to 8 digits allowed.")
     regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=False, default='')
     updated_on = models.DateTimeField(default=timezone.now)
+    deletable = models.BooleanField(default=False)
     payment = models.BooleanField(default=False)
 
     class Meta:
@@ -120,14 +124,14 @@ class Participant(models.Model):
         ev = self.event_id
         type = Event.objects.get(id=ev)
         if is_new:
-            if  flagind < 5:
-                print("Eligble for Individual Event Registraion")
-            elif type.eventtype==0:
-                raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Individual events, Check the person status.")
-            if flaggrp < 5:
-                print("Eligble for Group Event Registraion")
-            elif type.eventtype==1:
-                raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Group events, Check the person status.")
+            #if  flagind < 5:
+            #    print("Eligble for Individual Event Registraion")
+            #elif type.eventtype==0:
+            #    raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Individual events, Check the person status.")
+            #if flaggrp < 5:
+            #    print("Eligble for Group Event Registraion")
+            #elif type.eventtype==1:
+            #    raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Group events, Check the person status.")
             if self.slot <= self.event.slot:
                 print("Correct Number of Slots Chosen")
             else:
