@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Sattva 2020</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" type="text/css" href="icons/flaticon.css">
+        <script type="text/javascript">
+            
+            function toggletab(tabnum)
+            {
+                document.getElementsByClassName('active-tab')[0].classList.toggle('active-tab');
+                document.getElementsByClassName('link-tab')[tabnum].classList.toggle('active-tab');
+                
+                var t0 = document.getElementById('tab-home');
+                var t1 = document.getElementById('tab-results');
+                var t2 = document.getElementById('tab-points');
+                
+                switch(tabnum)
+                {
+                    case 0:
+                        t0.style.left = '0vw';
+                        t0.style.width = '100vw';
+                        t1.style.left = '100vw';
+                        t1.style.width = '0vw';
+                        t2.style.left = '100vw';
+                        t2.style.width = '0vw';
+                    break;
+                    case 1:
+                        t0.style.left = '0vw';
+                        t0.style.width = '0vw';
+                        t1.style.left = '0vw';
+                        t1.style.width = '100vw';
+                        t2.style.left = '100vw';
+                        t2.style.width = '0vw';
+                        document.getElementById('search-results').focus();
+                    break;
+                    case 2:
+                        t0.style.left = '0vw';
+                        t0.style.width = '0vw';
+                        t1.style.left = '0vw';
+                        t1.style.width = '0vw';
+                        t2.style.left = '0vw';
+                        t2.style.width = '100vw';
+                    break;
+                    default: break;
+                }
+            }
+            
+        </script>
+    </head>
+    
+    <body>
+        
+        <nav>
+            <div>
+            <a href="#" onclick="toggletab(0);" class="link-tab active-tab">Home</a>
+            <a href="#" onclick="toggletab(1);" class="link-tab">Results</a>
+            <a href="#" onclick="toggletab(2);" class="link-tab link-tab-table">Table</a>
+            </div>
+        </nav>
+        
+        
+        <div id="wrapper">
+            
+            <!--- home tab body --->
+            <section id="tab-home">
+                <div>
+                    <h1>SATTVA</h1>
+                    <h3>24.01.2020 | 25.01.2020</h3>
+                </div>
+            </section>
+            
+            <!--- results tab body --->
+            <section id="tab-results">
+                <input type="text" id="search-results" onchange="searchresults()" placeholder="Search in results">
+            </section>
+            
+            <!--- points table tab body --->
+            <section id="tab-points">
+                <div class="branch">
+                    <div class="icon"><i class="flaticon-ce"></i></div>
+                    <div class="name">CIVIL ENGINEERING</div>
+                    <div class="points">0</div>
+                </div>
+                <div class="branch">
+                    <div class="icon"><i class="flaticon-cse"></i></div>
+                    <div class="name">COMPUTER SCIENCE ENGINEERING</div>
+                    <div class="points">0</div>
+                </div>
+            </section>
+            
+        </div>
+        
+    </body>
+    
+</html>
