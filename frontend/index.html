@@ -22,15 +22,23 @@
                 {
                     case 0:
                         t0.style.left = '0vw';
-                        t0.style.width = '100vw';
                         t1.style.left = '-100vw';
-                        t1.style.width = '100vw';
+                        if(window.matchMedia("(min-width: 800px)").matches)
+                        {
+                            t0.style.width = 'calc(100vw - 20rem)';
+                            t1.style.width = 'calc(100vw - 20rem)';
+                            t1.style.left = 'calc(-100vw + 20rem)';
+                        }
                     break;
                     case 1:
                         t0.style.left = '-100vw';
-                        t0.style.width = '100vw';
                         t1.style.left = '0vw';
-                        t1.style.width = '100vw';
+                        if(window.matchMedia("(min-width: 800px)").matches)
+                        {
+                            t0.style.width = 'calc(100vw - 20rem)';
+                            t1.style.width = 'calc(100vw - 20rem)';
+                            t0.style.left = 'calc(-100vw + 20rem)';
+                        }
                         document.getElementById('search-results').focus();
                     break;
                     default: break;
@@ -49,6 +57,14 @@
                         cont.style.top = "0vh";
                     break;
                 }
+            }
+            
+            function searchresults(inp)
+            {
+                var list = document.getElementById('results-container').getElementsByTagName('h4');
+                var term = inp.value;
+                
+                
             }
             
         </script>
@@ -78,7 +94,7 @@
             <section id="tab-results">
                 <div class="search-container">
                     <i class="flaticon-search"></i>
-                    <input type="text" id="search-results" onchange="searchresults()" placeholder="Search in results">
+                    <input type="text" id="search-results" onkeypress="searchresults(this)" placeholder="Search in results">
                 </div>
                 
                 <div id="results-container">
