@@ -15,6 +15,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from events.models import Participant,Event
 from .tables import ParticipantTable,ParticipantTableCapt,ParticipantTableAdmin
 
+from django_filters.views import FilterView
+
+import django_filters
+
+class ParticipantFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Participant
+        fields = ['event']
 
 def dashviews(request):
     return render(request, 'dashboard_base.html')
@@ -22,11 +31,18 @@ def dashviews(request):
 
 
 
-class ParticipantListView(LoginRequiredMixin,SingleTableView):
+class ParticipantListView(LoginRequiredMixin,SingleTableMixin,FilterView):
     model = Participant
     table_class = ParticipantTable
     template_name = 'tables.html'
     paginator_class = LazyPaginator
+
+    filterset_class = ParticipantFilter
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Participant.objects.all()
+        else:
+            return Participant.objects.filter(branch=self.request.user.profile.branch)
 
 @login_required
 def participant_list(request):

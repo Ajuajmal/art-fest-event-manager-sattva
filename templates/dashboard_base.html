@@ -71,7 +71,13 @@ The above copyright notice and this permission notice shall be included in all c
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          <li {% if request.resolver_match.url_name == 'home' %} class="active " {% endif %}>
 
+            <a href="{% url 'home' %}">
+              <i class="nc-icon nc-shop"></i>
+              <p>Home</p>
+            </a>
+          </li>
           <li {% if request.resolver_match.url_name == 'dashboard' %} class="active " {% endif %}>
 
             <a href="{% url 'dashboard' %}">
@@ -86,11 +92,16 @@ The above copyright notice and this permission notice shall be included in all c
               <p>New Registration</p>
             </a>
           </li>
-
+          <li {% if request.resolver_match.url_name == 'list' %} class="active " {% endif %}>
+            <a href="{% url 'list' %}">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Participant Lists (ALL)</p>
+            </a>
+          </li>
           <li {% if request.resolver_match.url_name == 'caplist' %} class="active " {% endif %}>
             <a href="{% url 'caplist' %}">
               <i class="nc-icon nc-tile-56"></i>
-              <p>Participant Lists</p>
+              <p>Participant Lists(Upcoming & Ongoing Registrations)</p>
             </a>
           </li>
           <li {% if request.resolver_match.url_name == 'plist' %} class="active " {% endif %}>
