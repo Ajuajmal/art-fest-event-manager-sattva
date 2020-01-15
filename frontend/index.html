@@ -61,10 +61,27 @@
             
             function searchresults(inp)
             {
-                var list = document.getElementById('results-container').getElementsByTagName('h4');
-                var term = inp.value;
+                var key = inp.value.toLowerCase();           
+                console.log(key);
+                var result_list = document.getElementsByClassName('result');
                 
-                
+                for(var i = 0; i < result_list.length; i++)
+                {
+                    var title = result_list[i].childNodes[1];
+                    if(title.textContent.toLowerCase().indexOf(key) == -1)
+                    {
+                        var listitems = title.nextElementSibling.childNodes;
+                        var flag = 0;
+                        for(var j=0; j<listitems.length; j++)
+                        {
+                            if(listitems[j].nodeType != 1) continue;
+                            if(listitems[j].textContent.toLowerCase().indexOf(key) == -1) flag++;
+                        }
+                        if(flag == 3) result_list[i].style.display = 'none';
+                        else result_list[i].style.display = 'block';
+                    }
+                    else result_list[i].style.display = 'block'; 
+                }
             }
             
         </script>
@@ -94,12 +111,12 @@
             <section id="tab-results">
                 <div class="search-container">
                     <i class="flaticon-search"></i>
-                    <input type="text" id="search-results" onkeypress="searchresults(this)" placeholder="Search in results">
+                    <input type="text" id="search-results" placeholder="Search in results" onkeyup="searchresults(this);">
                 </div>
                 
                 <div id="results-container">
         
-                    <article>
+                    <article class="result">
                         <h4>PROGRAM TITLE</h4>
                         <ol type="1">
                             <li>John Doe</li>
@@ -107,7 +124,7 @@
                             <li>Robert Dowrey Jr.</li>
                         </ol>
                     </article>
-                    <article>
+                    <article class="result">
                         <h4>BIGGER PROGRAM TITLE</h4>
                         <ol type="1">
                             <li>Emma Watson</li>
@@ -115,11 +132,11 @@
                             <li>Robert Dowrey Jr.</li>
                         </ol>
                     </article>
-                    <article>
+                    <article class="result">
                         <h4>BIGGER PROGRAM TITLE</h4>
                         <ol type="1">
                             <li>Emma Watson</li>
-                            <li>Oliver Twist</li>
+                            <li>Tom Cruise</li>
                             <li>Robert Dowrey Jr.</li>
                         </ol>
                     </article>
