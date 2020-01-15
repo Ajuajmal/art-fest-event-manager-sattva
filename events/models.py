@@ -20,12 +20,13 @@ VENUE = (
     (0,"Scheduled"),
     (1,"Draft"),
     (2,"Withdrawn"),
-    (3, "Stage 1"),
-    (4, "Stage 2"),
-    (5, "Stage 3"),
-    (6, "Stage 4"),
-    (7, "Stage 5"),
-    (8, "Stage 6"),
+    (3, "Finished"),
+    (4, "Stage 1"),
+    (5, "Stage 2"),
+    (6, "Stage 3"),
+    (7, "Stage 4"),
+    (8, "Stage 5"),
+    (9, "Stage 6"),
 )
 
 EVENTTYPE = (

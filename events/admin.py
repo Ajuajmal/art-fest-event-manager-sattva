@@ -9,7 +9,18 @@ class EventAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_display = ('name', 'max_participants')
     list_filter = ('max_participants',)
     prepopulated_fields = {'slug':('name',)}
-    actions = ["export_as_csv"]
+    actions = ["export_as_csv","update_event_withdrawn","update_event_draft","update_event_finsh"]
+    def update_event_finsh(self, request, queryset):
+        queryset.update(venue=3)
+    def update_event_withdrawn(self, request, queryset):
+        queryset.update(venue=2)
+    def update_event_draft(self, request, queryset):
+        queryset.update(venue=1)
+    update_event_draft.allowed_permissions = ('change',)
+    update_event_finsh.allowed_permissions = ('change',)
+    update_event_withdrawn.allowed_permissions = ('change',)
+
+
 
 
 class ParticipantAdmin(admin.ModelAdmin, ExportCsvMixin):
