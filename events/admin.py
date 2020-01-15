@@ -13,7 +13,7 @@ class EventAdmin(admin.ModelAdmin,ExportCsvMixin):
 
 
 class ParticipantAdmin(admin.ModelAdmin, ExportCsvMixin):
-    list_display = ('name', 'branch','event','payment','deletable')
+    list_display = ('name', 'branch','event','payment','deletable','slot')
     list_filter = ('event','branch','regnumber',)
     search_fields = ['name', 'regnumber', 'event']
     actions = ["export_as_csv","update_payment_complete","update_payment_incomplete","update_delete_false","update_delete_true"]
