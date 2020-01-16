@@ -96,6 +96,25 @@ nav a.active-tab::after
 }
 
 
+#login-link
+{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #ffffff;
+    background: #ff0000;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.45rem 0.7rem;
+}
+
+#login-link > span
+{
+    display: none;
+}
+
+
 
 
 #wrapper
@@ -357,6 +376,29 @@ i.flaticon-search::before
 @media only screen and (min-width: 800px)
 {
     
+    #login-link
+    {
+        width: auto;
+        right: 20rem;
+        color: #ffffff;
+        z-index: 500;
+        padding: 0.35rem 0.75rem 0.2rem 0.75rem;
+    }
+    #login-link > i::before
+    {
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+    #login-link > span
+    {
+        display: inline-block;
+        color: #ffffff;
+        margin-left: 0.5rem;
+        padding-bottom: 0.2rem;
+        font: 0.9rem 'Open Sans', sans-serif;
+        font-weight: 600;
+    }
+    
     #wrapper
     {
         width: calc(100vw - 20rem);
@@ -370,15 +412,17 @@ i.flaticon-search::before
     #tab-home
     {
         max-width: calc(100vw - 20rem);
-        background-size: auto 50%;
+        background-color: #000000;
+        background-size: auto calc(100vw - 45rem);
         background-repeat: repeat-y;
-        background-position: left top;
+        background-position: right top;
     }
     
     #tab-home > div
     {
-        top: calc(2rem);
-        left: calc(50% - 8.5rem);
+        top: calc(50vh - 6.25rem);
+        left: 4rem;
+        transform: rotate(-90deg) scale(2);
     }
     
     #tab-home > div > h1
@@ -389,6 +433,7 @@ i.flaticon-search::before
     #tab-home > div > h3
     {
         font-size: 1.25rem;
+        color: #dddddd;
     }
     
     
@@ -452,7 +497,7 @@ i.flaticon-search::before
         width: 20rem;
         top: 0;
         left: calc(100vw - 20rem);
-        padding-top: 2rem;
+        padding-top: 3.5rem;
     }
     #points-container > span
     {

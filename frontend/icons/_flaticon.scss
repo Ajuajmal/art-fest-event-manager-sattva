@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 14/01/2020 04:49
+    Creation date: 16/01/2020 12:15
     */
 
     @font-face {
@@ -37,20 +37,22 @@
   font-smoothing: antialiased;
     }
 
-    .flaticon-it:before { content: "\f100"; }
-.flaticon-me:before { content: "\f101"; }
-.flaticon-ce:before { content: "\f102"; }
+    .flaticon-search:before { content: "\f100"; }
+.flaticon-ce:before { content: "\f101"; }
+.flaticon-mca:before { content: "\f102"; }
 .flaticon-cse:before { content: "\f103"; }
-.flaticon-eee:before { content: "\f104"; }
-.flaticon-ece:before { content: "\f105"; }
-.flaticon-mca:before { content: "\f106"; }
-.flaticon-search:before { content: "\f107"; }
+.flaticon-mca-1:before { content: "\f104"; }
+.flaticon-it:before { content: "\f105"; }
+.flaticon-eee:before { content: "\f106"; }
+.flaticon-ece:before { content: "\f107"; }
+.flaticon-login:before { content: "\f108"; }
     
-    $font-Flaticon-it: "\f100";
-    $font-Flaticon-me: "\f101";
-    $font-Flaticon-ce: "\f102";
+    $font-Flaticon-search: "\f100";
+    $font-Flaticon-ce: "\f101";
+    $font-Flaticon-mca: "\f102";
     $font-Flaticon-cse: "\f103";
-    $font-Flaticon-eee: "\f104";
-    $font-Flaticon-ece: "\f105";
-    $font-Flaticon-mca: "\f106";
-    $font-Flaticon-search: "\f107";
+    $font-Flaticon-mca-1: "\f104";
+    $font-Flaticon-it: "\f105";
+    $font-Flaticon-eee: "\f106";
+    $font-Flaticon-ece: "\f107";
+    $font-Flaticon-login: "\f108";
