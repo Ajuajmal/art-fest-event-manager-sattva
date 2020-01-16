@@ -456,7 +456,7 @@ i.flaticon-search::before
     
     #search-results
     {
-        width: 25rem;
+        width: 17.5rem;
         margin: 0 1.5rem;
         float: right;
     }
@@ -468,7 +468,7 @@ i.flaticon-search::before
 
     #tab-results > .search-container > i.flaticon-search
     {
-        left: calc(100% - 25.75rem);
+        left: calc(100% - 18.25rem);
     }
     
     
