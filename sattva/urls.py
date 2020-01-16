@@ -27,10 +27,11 @@ from dashboard import views as dash_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('', event_views.homeviews, name='home'),
     path('', dash_views.dashviews, name='dashboard'),
     path('dash/new', event_views.ParticipantCreateView.as_view(), name='newregistration'),
-    path('dash/admin/list/', dash_views.ParticipantListView.as_view(), name='list'),
-    path('dash/captians/list/', dash_views.participant_list, name='caplist'),
+    path('dash/captians/list/all', dash_views.ParticipantListView.as_view(), name='list'),
+    path('dash/captians/list/upcoming', dash_views.participant_list, name='caplist'),
     path('dash/participants/list', event_views.participant_list, name='plist'),
     #path('dash/list/', dash_views.person_list, name='list'),
     path('signup/', accounts_views.signup, name='signup'),

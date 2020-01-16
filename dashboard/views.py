@@ -12,9 +12,18 @@ from django_tables2 import SingleTableView,LazyPaginator
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from events.models import Participant
+from events.models import Participant,Event
 from .tables import ParticipantTable,ParticipantTableCapt,ParticipantTableAdmin
 
+from django_filters.views import FilterView
+
+import django_filters
+
+class ParticipantFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Participant
+        fields = ['event']
 
 def dashviews(request):
     return render(request, 'dashboard_base.html')
@@ -22,17 +31,25 @@ def dashviews(request):
 
 
 
-class ParticipantListView(LoginRequiredMixin,SingleTableView):
+class ParticipantListView(LoginRequiredMixin,SingleTableMixin,FilterView):
     model = Participant
     table_class = ParticipantTable
     template_name = 'tables.html'
     paginator_class = LazyPaginator
 
+    filterset_class = ParticipantFilter
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Participant.objects.all()
+        else:
+            return Participant.objects.filter(branch=self.request.user.profile.branch)
+
 @login_required
 def participant_list(request):
-    table = ParticipantTableCapt(Participant.objects.filter(branch=request.user.profile.branch).filter(deletable=False).order_by('event'))
+    events = Event.objects.filter(venue__in =[1,2])
+    table = ParticipantTableCapt(Participant.objects.filter(branch=request.user.profile.branch).filter(event__in=events).order_by('event'))
     if request.user.is_staff:
-        table = ParticipantTableAdmin(Participant.objects.filter(deletable=True).order_by('event'))
+        table = ParticipantTableAdmin(Participant.objects.order_by('event'))
     return render(request, "captian_list.html", {
         "table": table
     })
