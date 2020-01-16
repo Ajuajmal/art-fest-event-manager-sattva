@@ -97,7 +97,7 @@
             </div>
         </nav>
 
-        <a id="login-link" href="{% url 'list' %}"><i class="flaticon-login"></i><span>LOGIN</span></a>
+        <a id="login-link" href="{% url 'list' %}"><i class="flaticon-login"></i><span>{% if user.is_authenticated %}Dashboard{% else %}Login{% endif %}</span></a>
 
         <div id="wrapper">
 
