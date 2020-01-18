@@ -34,6 +34,11 @@ EVENTTYPE = (
     (1,"Group"),
 )
 
+STAGETYPE = (
+    (0,"Onstage"),
+    (1,"OffStage"),
+)
+
 class Category(models.Model):
     name = models.CharField(max_length=50,default='None')
     class Meta:
@@ -47,12 +52,12 @@ class Event(models.Model):
     scheduler = models.ForeignKey(User, on_delete= models.CASCADE, related_name="event_auth")
     eventid =models.CharField(max_length=20, default="EW")
     name = models.CharField(max_length=200)
+    stagetype = models.IntegerField(choices=STAGETYPE, default=0)
     eventtype = models.IntegerField(choices=EVENTTYPE, default=0)
     date = models.DateTimeField(blank=True, null=True)
     updated_on = models.DateTimeField(default=timezone.now)
     venue = models.IntegerField(choices=VENUE, default=1)
     cover = models.ImageField(upload_to=user_directory_path, default='defaultevent.jpg')
-    about = RichTextUploadingField()
     max_participants = models.IntegerField(default=0)
     accompanying_participants = models.BooleanField(default=False)
     max_accompanying_participants = models.IntegerField(default=0)
@@ -110,6 +115,8 @@ class Participant(models.Model):
     regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=False, default='')
     updated_on = models.DateTimeField(default=timezone.now)
     deletable = models.BooleanField(default=True)
+    substitution = models.BooleanField(default=False)
+    spot = models.BooleanField(default=False)
     payment = models.BooleanField(default=False)
 
     class Meta:
@@ -118,21 +125,21 @@ class Participant(models.Model):
 
     def clean(self):
         is_new = True if not self.id else False
-        flagind = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__eventtype=0).filter(participant_type=0).count()
-        flaggrp = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__eventtype=1).filter(participant_type=0).count()
+        flagind = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__stagetype=0).filter(event__eventtype=0).filter(participant_type=0).count()
+        flaggrp = self.__class__.objects.filter(regnumber=self.regnumber).filter(event__stagetype=0).filter(event__eventtype=1).filter(participant_type=0).count()
         if self.event_id == None:
             raise forms.ValidationError(" error value undefined ")
         ev = self.event_id
         type = Event.objects.get(id=ev)
         if is_new:
-            #if  flagind < 5:
-            #    print("Eligble for Individual Event Registraion")
-            #elif type.eventtype==0:
-            #    raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Individual events, Check the person status.")
-            #if flaggrp < 5:
-            #    print("Eligble for Group Event Registraion")
-            #elif type.eventtype==1:
-            #    raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Group events, Check the person status.")
+            if  flagind < 5:
+                print("Eligble for Individual Event Registraion")
+            elif type.eventtype==0 and type.stagetype==0:
+                raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Individual(OnStage) events, Check the participant status.")
+            if flaggrp < 5:
+                print("Eligble for Group Event Registraion")
+            elif type.eventtype==1 and type.stagetype==0:
+                raise forms.ValidationError(" already exists 5 entry : The person already registerd for 5 Group(OnStage) events, Check the participant status.")
             if self.slot <= self.event.slot:
                 print("Correct Number of Slots Chosen")
             else:
