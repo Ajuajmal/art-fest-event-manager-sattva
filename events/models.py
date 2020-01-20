@@ -111,7 +111,7 @@ class Participant(models.Model):
     name = models.CharField(max_length=200)
     branch = models.IntegerField(choices=BRANCH, default=7)
     semester = models.IntegerField(choices=SEM)
-    regnumber_regex = RegexValidator(regex=r'^[0-9]{8}$', message="reg number must be entered in the format: '12180222'. Up to 8 digits allowed.")
+    regnumber_regex = RegexValidator(regex=r'^[0-9]{8}$', message="reg number must be entered in the format: '12180222'.Only 8 digits reg numbers are allowed. For MCA S6 :- Please remove first digit (1) and enter remaining ")
     regnumber = models.CharField(validators=[regnumber_regex], max_length=8, blank=False, default='')
     updated_on = models.DateTimeField(default=timezone.now)
     deletable = models.BooleanField(default=True)
