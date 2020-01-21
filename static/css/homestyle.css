@@ -12,7 +12,7 @@ html, body
 {
     width: 100vw;
     max-width: 100vw;
-    font-size: 18px;
+    font-size: 20px;
     background: #ffffff;
 }
 
@@ -35,18 +35,23 @@ table, tr, td
 {
     color: #999999;
 }
+
 ::-moz-placeholder
 {
     color: #999999;
 }
+
 :-ms-input-placeholder
 {
     color: #999999;
 }
+
 :-moz-placeholder
 {
     color: #999999;
 }
+
+
 
 
 
@@ -82,7 +87,6 @@ nav a.active-tab
     color: #ffffff;
     font-weight: 700;
 }
-
 nav a.active-tab::after
 {
     display: block;
@@ -139,38 +143,17 @@ nav a.active-tab::after
 #tab-home
 {
     left: 0;
-    background: #eeeeee;
-    background-image: url(bgnew.jpg);
-    background-size: 80% auto;
-    background-repeat: repeat-y;
-    background-position: bottom;
+    background: #ffffff;
+    background-image: url(logo.png);
+    background-size: 75vw auto;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 #tab-home > div
 {
-    position: absolute;
-    top: 1.5rem;
-    left: calc(50vw - 6rem);
-    background: rgba(0,0,0,0.9);
-    padding: 1.5rem;
-    text-align: center;
+    display: none;
 }
-
-#tab-home > div > h1
-{
-    color: #ffffff;
-    font: 2.25rem 'Open Sans', sans-serif;
-    font-weight: 700;
-    line-height: 1;
-    text-shadow: 0 0 7px #ffffff;
-}
-
-#tab-home > div > h3
-{
-    color: #ff5555;
-    font: 0.8rem 'Open Sans', sans-serif;
-}
-
 
 
 
@@ -217,15 +200,11 @@ i.flaticon-search::before
     border-radius: 6px;
     box-shadow: inset 0 0 2px 1px #bbbbbb;
 }
-
-
-
 #search-results::before
 {
     content: '&#x1F50D;';
     position: absolute;
 }
-
 #search-results:focus
 {
     background: #ffffff;
@@ -276,7 +255,6 @@ i.flaticon-search::before
 
 
 
-
 #points-opener
 {
     display: block;
@@ -304,8 +282,9 @@ i.flaticon-search::before
     display: block;
     width: 100vw;
     height: 100vh;
+    overflow-y: auto;
     left: 0;
-    top: -139vh;
+    top: -100vh;
     position: fixed;
     background: #000000;
     z-index: 300;
@@ -373,6 +352,10 @@ i.flaticon-search::before
 
 
 
+
+
+
+
 @media only screen and (min-width: 800px)
 {
 
@@ -384,11 +367,13 @@ i.flaticon-search::before
         z-index: 500;
         padding: 0.35rem 0.75rem 0.2rem 0.75rem;
     }
+
     #login-link > i::before
     {
         font-size: 0.75rem;
         font-weight: 600;
     }
+
     #login-link > span
     {
         display: inline-block;
@@ -412,31 +397,28 @@ i.flaticon-search::before
     #tab-home
     {
         max-width: calc(100vw - 20rem);
-        background-color: #000000;
-        background-size: auto calc(100vw - 45rem);
-        background-repeat: repeat-y;
-        background-position: right top;
+        background: url(bgnew.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
     }
 
     #tab-home > div
     {
-        top: calc(50vh - 6.25rem);
-        left: 4rem;
-        transform: rotate(-90deg) scale(2);
+        display: block;
+        position: absolute;
+        z-index: 700;
+        background-color: rgba(255,255,255,0.5);
+        background-image: url(logo.png);
+        background-size: auto 520px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 600px;
+        height: 600px;
+        left: calc(50vw - 25rem);
+        top: calc(50vh - 15rem);
+        border-radius: 10px;
     }
-
-    #tab-home > div > h1
-    {
-        font-size: 3.5rem;
-    }
-
-    #tab-home > div > h3
-    {
-        font-size: 1.25rem;
-        color: #dddddd;
-    }
-
-
 
 
 
@@ -474,24 +456,23 @@ i.flaticon-search::before
 
 
 
-
-
     nav
     {
         width: calc(100vw - 20rem);
         overflow: hidden;
     }
+
     nav > div
     {
         width: 20rem;
         margin: 0 auto;
     }
 
-
     #points-opener
     {
         display: none;
     }
+
     #points-container
     {
         width: 20rem;
@@ -499,6 +480,7 @@ i.flaticon-search::before
         left: calc(100vw - 20rem);
         padding-top: 3.5rem;
     }
+
     #points-container > span
     {
         display: none;
