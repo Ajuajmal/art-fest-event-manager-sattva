@@ -27,8 +27,8 @@ from dashboard import views as dash_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', event_views.homeviews, name='home'),
-    path('', dash_views.dashviews, name='dashboard'),
+    path('', event_views.homeviews, name='home'),
+    path('dash/', dash_views.dashviews, name='dashboard'),
     path('dash/new', event_views.ParticipantCreateView.as_view(), name='newregistration'),
     path('dash/captians/list/all', dash_views.ParticipantListView.as_view(), name='list'),
     path('dash/captians/list/upcoming', dash_views.participant_list, name='caplist'),

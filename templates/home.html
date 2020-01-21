@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <title>Sattva 2020</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static '/css/homestyle.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static '/icons/flaticon.css' %}">
@@ -18,52 +18,86 @@
 
                 var t0 = document.getElementById('tab-home');
                 var t1 = document.getElementById('tab-results');
-                var t2 = document.getElementById('tab-points');
 
                 switch(tabnum)
                 {
                     case 0:
                         t0.style.left = '0vw';
-                        t0.style.width = '100vw';
-                        t1.style.left = '100vw';
-                        t1.style.width = '0vw';
-                        t2.style.left = '100vw';
-                        t2.style.width = '0vw';
+                        t1.style.left = '-100vw';
+                        if(window.matchMedia("(min-width: 800px)").matches)
+                        {
+                            t0.style.width = 'calc(100vw - 20rem)';
+                            t1.style.width = 'calc(100vw - 20rem)';
+                            t1.style.left = 'calc(-100vw + 20rem)';
+                        }
                     break;
                     case 1:
-                        t0.style.left = '0vw';
-                        t0.style.width = '0vw';
+                        t0.style.left = '-100vw';
                         t1.style.left = '0vw';
-                        t1.style.width = '100vw';
-                        t2.style.left = '100vw';
-                        t2.style.width = '0vw';
+                        if(window.matchMedia("(min-width: 800px)").matches)
+                        {
+                            t0.style.width = 'calc(100vw - 20rem)';
+                            t1.style.width = 'calc(100vw - 20rem)';
+                            t0.style.left = 'calc(-100vw + 20rem)';
+                        }
                         document.getElementById('search-results').focus();
-                    break;
-                    case 2:
-                        t0.style.left = '0vw';
-                        t0.style.width = '0vw';
-                        t1.style.left = '0vw';
-                        t1.style.width = '0vw';
-                        t2.style.left = '0vw';
-                        t2.style.width = '100vw';
                     break;
                     default: break;
                 }
             }
 
-        </script>
-    </head>
+            function togglepoints(x)
+            {
+                var cont = document.getElementById('points-container');
+                switch(x)
+                {
+                    case 0:
+                        cont.style.top = "-130vh";
+                    break;
+                    case 1:
+                        cont.style.top = "0vh";
+                    break;
+                }
+            }
 
-    <body>
+            function searchresults(inp)
+            {
+                var key = inp.value.toLowerCase();
+                console.log(key);
+                var result_list = document.getElementsByClassName('result');
+
+                for(var i = 0; i < result_list.length; i++)
+                {
+                    var title = result_list[i].childNodes[1];
+                    if(title.textContent.toLowerCase().indexOf(key) == -1)
+                    {
+                        var listitems = title.nextElementSibling.childNodes;
+                        var flag = 0;
+                        for(var j=0; j<listitems.length; j++)
+                        {
+                            if(listitems[j].nodeType != 1) continue;
+                            if(listitems[j].textContent.toLowerCase().indexOf(key) == -1) flag++;
+                        }
+                        if(flag == 3) result_list[i].style.display = 'none';
+                        else result_list[i].style.display = 'block';
+                    }
+                    else result_list[i].style.display = 'block';
+                }
+            }
+
+        </script>
+        </head>
+
+        <body>
 
         <nav>
             <div>
             <a href="#" onclick="toggletab(0);" class="link-tab active-tab">Home</a>
             <a href="#" onclick="toggletab(1);" class="link-tab">Results</a>
-            <a href="#" onclick="toggletab(2);" class="link-tab link-tab-table">Table</a>
             </div>
         </nav>
 
+        <a id="login-link" href="{% url 'list' %}"><i class="flaticon-login"></i><span>{% if user.is_authenticated %}Dashboard{% else %}LOGIN{% endif %}</span></a>
 
         <div id="wrapper">
 
@@ -71,7 +105,7 @@
             <section id="tab-home">
                 <div>
                     <h1>SATTVA</h1>
-                    <h3>24.01.2020 | 25.01.2020</h3>
+                    <h3>24 &amp; 25 JANUARY 2020</h3>
                 </div>
             </section>
 
@@ -79,60 +113,86 @@
             <section id="tab-results">
                 <div class="search-container">
                     <i class="flaticon-search"></i>
-                    <input type="text" id="search-results" onchange="searchresults()" placeholder="Search in results">
+                    <input type="text" id="search-results" placeholder="Search in results" onkeyup="searchresults(this);">
                 </div>
 
                 <div id="results-container">
 
-                    <article>
-                        <div>
-                            <h4>PROGRAM TITLE</h4>
-                        </div>
+                    <!--
+
+                    |-------------------|
+                    | RESULT BOX FORMAT |
+                    |-------------------|
+
+                    <article class="result">
+                        <h4>PROGRAM TITLE</h4>
                         <ol type="1">
                             <li>John Doe</li>
-                            <li>Jane Doe</li>
+                            <li>Jane Doe &amp; Oliver Twist</li>
                             <li>Robert Dowrey Jr.</li>
                         </ol>
                     </article>
-                    <article>
-                        <h4>BIGGER PROGRAM TITLE</h4>
-                        <ol type="1">
-                            <li>Emma Watson</li>
-                            <li>Oliver Twist</li>
-                            <li>Robert Dowrey Jr.</li>
-                        </ol>
-                    </article>
-                    <article>
-                        <div>
-                            <h4>BIGGER PROGRAM TITLE</h4>
-                        </div>
-                        <ol type="1">
-                            <li>Emma Watson</li>
-                            <li>Oliver Twist</li>
-                            <li>Robert Dowrey Jr.</li>
-                        </ol>
-                    </article>
+
+                    -->
 
                 </div>
 
             </section>
 
-            <!--- points table tab body --->
-            <section id="tab-points">
-                <div class="branch">
-                    <div class="icon"><i class="flaticon-ce"></i></div>
-                    <div class="name">CIVIL ENGINEERING</div>
-                    <div class="points">0</div>
+
+
+            <a id="points-opener" href="#" onclick="togglepoints(1);">POINTS TABLE</a>
+            <div id="points-container">
+                <span><a href="#" onclick="togglepoints(0);">x</a></span>
+                <div id="points-table">
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-ce"></i></span>
+                        <span class="name">CIVIL ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-cse"></i></span>
+                        <span class="name">COMPUTER SCIENCE ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-ece"></i></span>
+                        <span class="name">ELECTRONICS &amp; COMMUNICATION ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-eee"></i></span>
+                        <span class="name">ELECTRICAL &amp; ELECTRONICS ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-it"></i></span>
+                        <span class="name">INFORMATION TECHNOLOGY</span>
+                        <span class="points">0</span>
+                    </article>
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-me"></i></span>
+                        <span class="name">MECHANICAL ENGINEERING</span>
+                        <span class="points">0</span>
+                    </article>
+
+                    <article class="branch">
+                        <span class="icon"><i class="flaticon-mca"></i></span>
+                        <span class="name">MASTER OF COMPUTER APPLICATIONS</span>
+                        <span class="points">0</span>
+                    </article>
+
                 </div>
-                <div class="branch">
-                    <div class="icon"><i class="flaticon-cse"></i></div>
-                    <div class="name">COMPUTER SCIENCE ENGINEERING</div>
-                    <div class="points">0</div>
-                </div>
-            </section>
+            </div>
 
         </div>
 
-    </body>
+        </body>
 
-</html>
+        </html>

@@ -23,7 +23,7 @@ class ParticipantFilter(django_filters.FilterSet):
 
     class Meta:
         model = Participant
-        fields = ['event']
+        fields = ['event','regnumber']
 
 def dashviews(request):
     return render(request, 'dashboard_base.html')
