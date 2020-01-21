@@ -304,6 +304,7 @@ i.flaticon-search::before
     display: block;
     width: 100vw;
     height: 100vh;
+    overflow-y: auto;
     left: 0;
     top: -100vh;
     position: fixed;
