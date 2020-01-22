@@ -67,7 +67,7 @@ class Event(models.Model):
 
     class Meta:
         verbose_name_plural = "Events"
-        ordering = ['-updated_on']
+        ordering = ['name']
     def __str__(self):
         return self.name
 
@@ -120,7 +120,7 @@ class Participant(models.Model):
     payment = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-updated_on']
+        ordering = ['event__name']
 
 
     def clean(self):
