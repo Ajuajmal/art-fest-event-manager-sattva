@@ -208,7 +208,8 @@ i.flaticon-search::before
 #search-results:focus
 {
     background: #ffffff;
-    border: 1px solid #cccccc;
+    border: 1px solid #0000ff;
+    outline: none !important;
 }
 
 #results-container
@@ -289,6 +290,7 @@ i.flaticon-search::before
     background: #000000;
     z-index: 300;
     transition: top 1s;
+    padding-bottom: 2rem;
 }
 
 #points-container > span
@@ -346,6 +348,22 @@ i.flaticon-search::before
 #points-table > article:nth-child(even)
 {
     background: #000000;
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 799px) and (orientation: landscape)
+{
+    #tab-home 
+    {
+        background-size: auto 55vmin;
+    }
 }
 
 
