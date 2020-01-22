@@ -136,57 +136,77 @@
 
                     -->
 
+  {% for x in winners %}
+  {% if x.winner11 != None %}
 
                     <article class="result">
-                        <h4>QUIZ</h4>
+
+                        <h4>{{x.event.name}}</h4>
                         <ol type="1">
                             <li>
                                 <ul>
-                                    <li>Krishna dev K - S6 IT</li>
-                                    <li>Philona Reetha Sebastian - S4 IT</li>
-                                    <li>Vidya - S8 IT</li>
+                                  <li>{{x.winner11.name}} - {{x.winner11.get_semester_display}} {{x.winner11.get_branch_display}}</li>
+                                  {% if x.winner12 != None %}
+                                    <li>{{x.winner12.name}} - {{x.winner12.get_semester_display}} {{x.winner12.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner13 != None %}
+                                    <li>{{x.winner13.name}} - {{x.winner13.get_semester_display}} {{x.winner13.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner14 != None %}
+                                    <li>{{x.winner14.name}} - {{x.winner14.get_semester_display}} {{x.winner14.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner15 != None %}
+                                    <li>{{x.winner15.name}} - {{x.winner15.get_semester_display}} {{x.winner15.get_branch_display}}</li>
+                                  {% endif %}
                                 </ul>
                             </li>
+                              {% if x.winner21 != None %}
                             <li>
                                 <ul>
-                                    <li>Akshay Vinod - S6 ME</li>
-                                    <li>Abhiram P - S6 ME</li>
-                                    <li>Nithish Sabu - S6 ME</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul>
-                                    <li>Ashwin Raj - S6 MCA</li>
-                                    <li>Athul Parameswaran M K - S2 MCA</li>
-                                    <li>Jishag G - S4 MCA</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </article>
 
-                    <article class="result">
-                        <h4>MEHNDI</h4>
-                        <ol type="1">
-                            <li>
-                                <ul>
-                                    <li>Sandra Rajeev - S2 IT</li>
-                                    <li>Krishna A G - S2 IT</li>
+                                    <li>{{x.winner21.name}} - {{x.winner21.get_semester_display}} {{x.winner21.get_branch_display}}</li>
+
+                                  {% if x.winner12 != None %}
+                                    <li>{{x.winner22.name}} - {{x.winner22.get_semester_display}} {{x.winner22.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner23 != None %}
+                                    <li>{{x.winner23.name}} - {{x.winner23.get_semester_display}} {{x.winner23.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner24 != None %}
+                                    <li>{{x.winner24.name}} - {{x.winner24.get_semester_display}} {{x.winner24.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner25 != None %}
+                                    <li>{{x.winner25.name}} - {{x.winner25.get_semester_display}} {{x.winner25.get_branch_display}}</li>
+                                  {% endif %}
                                 </ul>
                             </li>
+                              {% endif %}
+                              {% if x.winner31 != None %}
                             <li>
                                 <ul>
-                                    <li>Muhsina - S2 EEE</li>
-                                    <li>Territa Figerado - S6 EEE</li>
+
+                                    <li>{{x.winner31.name}} - {{x.winner31.get_semester_display}} {{x.winner31.get_branch_display}}</li>
+
+                                  {% if x.winner32 != None %}
+                                    <li>{{x.winner32.name}} - {{x.winner32.get_semester_display}} {{x.winner32.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner33 != None %}
+                                    <li>{{x.winner33.name}} - {{x.winner33.get_semester_display}} {{x.winner33.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner34 != None %}
+                                    <li>{{x.winner34.name}} - {{x.winner34.get_semester_display}} {{x.winner34.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winner315 != None %}
+                                    <li>{{x.winner35.name}} - {{x.winner35.get_semester_display}} {{x.winner35.get_branch_display}}</li>
+                                  {% endif %}
                                 </ul>
                             </li>
-                            <li>
-                                <ul>
-                                    <li>Athira D N - S4 MCA</li>
-                                    <li>Vijayalakshmi P - S4 MCA</li>
-                                </ul>
-                            </li>
+                              {% endif %}
                         </ol>
                     </article>
+    {% endif %}
+{% endfor %}
+
 
                 </div>
 
@@ -202,43 +222,43 @@
                     <article class="branch">
                         <span class="icon"><i class="flaticon-ce"></i></span>
                         <span class="name">CIVIL ENGINEERING</span>
-                        <span class="points">0</span>
+                        <span class="points">{{ ce }}</span>
                     </article>
 
                     <article class="branch">
                         <span class="icon"><i class="flaticon-cse"></i></span>
                         <span class="name">COMPUTER SCIENCE ENGINEERING</span>
-                        <span class="points">0</span>
+                        <span class="points">{{ cse }}</span>
                     </article>
 
                     <article class="branch">
                         <span class="icon"><i class="flaticon-ece"></i></span>
                         <span class="name">ELECTRONICS &amp; COMMUNICATION ENGINEERING</span>
-                        <span class="points">0</span>
+                        <span class="points">{{ ec }}</span>
                     </article>
 
                     <article class="branch">
                         <span class="icon"><i class="flaticon-eee"></i></span>
                         <span class="name">ELECTRICAL &amp; ELECTRONICS ENGINEERING</span>
-                        <span class="points">3</span>
+                        <span class="points">{{ eee }}</span>
                     </article>
 
                     <article class="branch">
                         <span class="icon"><i class="flaticon-it"></i></span>
                         <span class="name">INFORMATION TECHNOLOGY</span>
-                        <span class="points">15</span>
+                        <span class="points">{{ it }}</span>
                     </article>
 
                     <article class="branch">
                         <span class="icon"><i class="flaticon-me"></i></span>
                         <span class="name">MECHANICAL ENGINEERING</span>
-                        <span class="points">6</span>
+                        <span class="points">{{ me }}</span>
                     </article>
 
                     <article class="branch">
                         <span class="icon"><i class="flaticon-mca"></i></span>
                         <span class="name">MASTER OF COMPUTER APPLICATIONS</span>
-                        <span class="points">4</span>
+                        <span class="points">{{ mca }}</span>
                     </article>
 
                 </div>

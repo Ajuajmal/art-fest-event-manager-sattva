@@ -10,15 +10,15 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" type="text/css" href="icons/flaticon.css">
         <script type="text/javascript">
-            
+
             function toggletab(tabnum)
             {
                 document.getElementsByClassName('active-tab')[0].classList.toggle('active-tab');
                 document.getElementsByClassName('link-tab')[tabnum].classList.toggle('active-tab');
-                
+
                 var t0 = document.getElementById('tab-home');
                 var t1 = document.getElementById('tab-results');
-                
+
                 switch(tabnum)
                 {
                     case 0:
@@ -45,7 +45,7 @@
                     default: break;
                 }
             }
-            
+
             function togglepoints(x)
             {
                 var cont = document.getElementById('points-container');
@@ -59,14 +59,14 @@
                     break;
                 }
             }
-            
-            
-            
+
+
+
             function searchresults(inp)
             {
-                var key = inp.value.toLowerCase();           
+                var key = inp.value.toLowerCase();
                 var result_list = document.getElementsByClassName('result');
-                
+
                 for(var i = 0; i < result_list.length; i++)
                 {
                     var title = result_list[i].childNodes[1];
@@ -83,40 +83,40 @@
                         if(flag == 3) result_list[i].style.display = 'none';
                         else result_list[i].style.display = 'block';
                     }
-                    else result_list[i].style.display = 'block'; 
+                    else result_list[i].style.display = 'block';
                 }
             }
-            
+
         </script>
     </head>
-    
+
     <body>
-        
+
         <nav>
             <div>
             <a href="#" onclick="toggletab(0);" class="link-tab active-tab">Home</a>
             <a href="#" onclick="toggletab(1);" class="link-tab">Results</a>
             </div>
         </nav>
-        
+
         <a id="login-link" href="#"><i class="flaticon-login"></i><span>LOGIN</span></a>
-        
+
         <div id="wrapper">
-            
+
             <!--- home tab body --->
             <section id="tab-home">
                 <div></div>
             </section>
-            
+
             <!--- results tab body --->
             <section id="tab-results">
                 <div class="search-container">
                     <i class="flaticon-search"></i>
                     <input type="text" id="search-results" placeholder="Search in results" onkeyup="searchresults(this);">
                 </div>
-                
+
                 <div id="results-container">
-        
+
                     <!--
 
                     |-------------------|
@@ -133,8 +133,8 @@
                     </article>
 
                     -->
-                    
-                    
+
+
                     <article class="result">
                         <h4>QUIZ</h4>
                         <ol type="1">
@@ -161,7 +161,7 @@
                             </li>
                         </ol>
                     </article>
-                    
+
                     <article class="result">
                         <h4>MEHNDI</h4>
                         <ol type="1">
@@ -169,7 +169,7 @@
                                 <ul>
                                     <li>Sandra Rajeev - S2 IT</li>
                                     <li>Krishna A G - S2 IT</li>
-                                </ul> 
+                                </ul>
                             </li>
                             <li>
                                 <ul>
@@ -185,65 +185,65 @@
                             </li>
                         </ol>
                     </article>
-                    
+
                 </div>
-                
+
             </section>
-            
-            
-            
+
+
+
             <a id="points-opener" href="#" onclick="togglepoints(1);">POINTS TABLE</a>
             <div id="points-container">
                 <span><a href="#" onclick="togglepoints(0);">x</a></span>
                 <div id="points-table">
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-ce"></i></span>
                         <span class="name">CIVIL ENGINEERING</span>
                         <span class="points">0</span>
                     </article>
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-cse"></i></span>
                         <span class="name">COMPUTER SCIENCE ENGINEERING</span>
                         <span class="points">0</span>
                     </article>
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-ece"></i></span>
                         <span class="name">ELECTRONICS &amp; COMMUNICATION ENGINEERING</span>
                         <span class="points">0</span>
                     </article>
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-eee"></i></span>
                         <span class="name">ELECTRICAL &amp; ELECTRONICS ENGINEERING</span>
                         <span class="points">3</span>
                     </article>
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-it"></i></span>
                         <span class="name">INFORMATION TECHNOLOGY</span>
                         <span class="points">15</span>
                     </article>
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-me"></i></span>
                         <span class="name">MECHANICAL ENGINEERING</span>
                         <span class="points">6</span>
                     </article>
-                    
+
                     <article class="branch">
                         <span class="icon"><i class="flaticon-mca"></i></span>
                         <span class="name">MASTER OF COMPUTER APPLICATIONS</span>
                         <span class="points">4</span>
                     </article>
-                    
+
                 </div>
             </div>
-            
+
         </div>
-        
+
     </body>
-    
+
 </html>
