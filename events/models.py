@@ -169,4 +169,4 @@ class Participant(models.Model):
         self.save()
 
     def __str__(self):
-        return self.name
+        return '%s %s %s %s %s' % (self.event, self.name, self.get_branch_display(), self.get_semester_display(), self.regnumber)
