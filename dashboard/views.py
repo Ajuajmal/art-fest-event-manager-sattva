@@ -35,7 +35,7 @@ def dashviews(request):
         me = 0
         me = 0
         mca = 0
-        csetime=csetime=ectime=eeetime=ittime=metime=mcatime=timezone.now()
+        cetime=csetime=ectime=eeetime=ittime=metime=mcatime=timezone.now()
         for x in score :
             if x.branch == 0:
                 ce +=x.score
