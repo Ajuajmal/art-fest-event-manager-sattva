@@ -71,10 +71,12 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'django_tables2',
     'django_filters',
+    'bootstrap3',
 
     'accounts',
     'events',
     'dashboard',
+    'results',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +104,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request',
+
             ],
         },
     },
@@ -173,4 +175,4 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
-LOGOUT_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'home'
