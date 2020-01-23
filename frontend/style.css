@@ -270,6 +270,7 @@ article.result > ol > li > ul > li:before
 {
     content: "\2022";
     display: inline-block;
+    color: #666666;
     font-weight: bold;
     width: 1rem;
     margin-left: -1em;
@@ -374,7 +375,7 @@ article.result > ol > li:nth-child(3) > ul > li:before
 }
 #points-table > article > span.points
 {
-    width: 2rem;
+    width: 3.5rem;
     text-align: right;
 }
 
