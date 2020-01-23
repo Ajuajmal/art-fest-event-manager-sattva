@@ -107,6 +107,7 @@
                 }
             }
 
+
         </script>
         </head>
 
@@ -153,126 +154,14 @@
                     </article>
 
   -->
-
   {% for x in winners %}
-  {% if x.winner11 != None or x.winnerbranch11 != None %}
+  <article class="result">
 
-                    <article class="result">
+  {{x.winners|safe}}
 
-                        <h4>{{x.event.name}}</h4>
-                        <ol type="1">
-                            <li>
-                                <ul>{% if x.winner11 != None %}
-                                  <li>{{x.winner11}}</li>
-                                  {% endif %}
-                                  {% if x.winner12 != None %}
-                                    <li>{{x.winner12}}</li>
-                                  {% endif %}
-                                  {% if x.winner13 != None %}
-                                    <li>{{x.winner13}}</li>
-                                  {% endif %}
-                                  {% if x.winner14 != None %}
-                                    <li>{{x.winner14}}</li>
-                                  {% endif %}
-                                  {% if x.winner15 != None %}
-                                    <li>{{x.winner15}}</li>
-                                  {% endif %}
-                                  {% if x.winnerbranch11 != None %}
-                                    <li>{{x.winnerbranch11}} </li>
-                                  {% endif %}
-                                </ul>
-                            </li>
-                              {% if x.winner21 != None or x.winnerbranch21 != None %}
-                            <li>
-                                <ul>
-                                  {% if x.winner21 != None %}
-                                    <li>{{x.winner21}}</li>
-                                    {% endif %}
+  </article>
+  {% endfor %}
 
-                                  {% if x.winner12 != None %}
-                                    <li>{{x.winner22}}</li>
-                                  {% endif %}
-                                  {% if x.winner23 != None %}
-                                    <li>{{x.winner23}}</li>
-                                  {% endif %}
-                                  {% if x.winner24 != None %}
-                                    <li>{{x.winner24}}</li>
-                                  {% endif %}
-                                  {% if x.winner25 != None %}
-                                    <li>{{x.winner25}}</li>
-                                  {% endif %}
-                                  {% if x.winnerbranch21 != None %}
-                                    <li>{{x.winnerbranch21}} </li>
-                                  {% endif %}
-                                </ul>
-                            </li>
-                              {% endif %}
-                              {% if x.winner31 != None or x.winnerbranch31 != None %}
-                            <li>
-                                <ul>
-                                  {% if x.winner31 != None %}
-
-                                    <li>{{x.winner31}}</li>
-                                    {% endif %}
-
-                                  {% if x.winner32 != None %}
-                                    <li>{{x.winner32}}</li>
-                                  {% endif %}
-                                  {% if x.winner33 != None %}
-                                    <li>{{x.winner33}}</li>
-                                  {% endif %}
-                                  {% if x.winner34 != None %}
-                                    <li>{{x.winner34}}</li>
-                                  {% endif %}
-                                  {% if x.winner35 != None %}
-                                    <li>{{x.winner35}}</li>
-                                  {% endif %}
-                                  {% if x.winnerbranch31 != None %}
-                                    <li>{{x.winnerbranch31}} </li>
-                                  {% endif %}
-                                </ul>
-                            </li>
-                              {% endif %}
-                              {% if x.winnerbranch41 != None %}
-                            <li>
-                                <ul>
-                                    <li>{{x.winnerbranch41}}</li>
-                                </ul>
-                            </li>
-                              {% endif %}
-                              {% if x.winnerbranch51 != None %}
-                            <li>
-                                <ul>
-                                    <li>{{x.winnerbranch51}}</li>
-                                </ul>
-                            </li>
-                              {% endif %}
-                              {% if x.winnerbranch61 != None %}
-                            <li>
-                                <ul>
-                                    <li>{{x.winnerbranch61}}</li>
-                                </ul>
-                            </li>
-                              {% endif %}
-                              {% if x.winnerbranch71 != None %}
-                            <li>
-                                <ul>
-                                    <li>{{x.winnerbranch71}}</li>
-                                </ul>
-                            </li>
-                              {% endif %}
-
-                              {% if x.winnerbranch81 != None %}
-                            <li>
-                                <ul>
-                                    <li>{{x.winnerbranch81}}</li>
-                                </ul>
-                            </li>
-                              {% endif %}
-                        </ol>
-                    </article>
-    {% endif %}
-{% endfor %}
 
 
                 </div>

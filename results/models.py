@@ -7,7 +7,13 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
 import os
 from django.core.validators import RegexValidator
+from django.contrib.postgres.fields import JSONField
+from django.utils.safestring import mark_safe
 
+import json
+from pygments import highlight
+from pygments.formatters.html import HtmlFormatter
+from pygments.lexers.data import JsonLexer
 from events.models import Participant, Event
 
 
@@ -32,9 +38,18 @@ SEM = (
     (8, "Semester"),
 )
 
+
+POS = (
+    (1, "FIRST"),
+    (2, "SECOND"),
+    (3, "THIRD"),
+    (4, "OTHER"),
+)
+
 class BranchPoint(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     branch = models.IntegerField(choices=BRANCH, default=0)
+    position = models.IntegerField(choices=POS, default=4)
     score = models.IntegerField()
     updated_on = models.DateTimeField(default=timezone.now)
 
@@ -48,26 +63,9 @@ class BranchPoint(models.Model):
         return '%s' % (self.event)
 class EventsResult(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
-    winner11 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winnerbranch11 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
-    winner12 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner13 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner14 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner21 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winnerbranch21 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner22 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner23 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner24 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner31 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winnerbranch31 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
-    winner32 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner33 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winner34 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='')
-    winnerbranch41 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
-    winnerbranch51 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
-    winnerbranch61 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
-    winnerbranch71 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
-    winnerbranch81 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
+
+    winners = RichTextField(blank=True)
+    
     updated_on = models.DateTimeField(default=timezone.now)
 
     class Meta:
