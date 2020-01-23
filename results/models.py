@@ -35,7 +35,7 @@ SEM = (
 class BranchPoint(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     branch = models.IntegerField(choices=BRANCH, default=0)
-    score = models.FloatField()
+    score = models.IntegerField()
     updated_on = models.DateTimeField(default=timezone.now)
 
     class Meta:
