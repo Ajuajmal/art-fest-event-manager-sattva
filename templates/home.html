@@ -15,6 +15,24 @@
         <link rel="stylesheet" type="text/css" href="{% static '/icons/flaticon.css' %}">
         <script type="text/javascript">
 
+          document.addEventListener('DOMContentLoaded', function()
+          {
+              var root = document.getElementById('points-table');
+              var branchlist = document.getElementsByClassName('branch');
+              console.log(branchlist);
+              for(var i = 0; i < branchlist.length-1; i++)
+              {
+                  for(var j = 0; j < branchlist.length - i - 1; j++)
+                  {
+                      if(parseInt(branchlist[j].children[2].textContent) < parseInt(branchlist[j+1].children[2].textContent))
+                      {
+                          root.insertBefore(branchlist[j+1], branchlist[j]);
+                      }
+                  }
+              }
+
+          }, false);
+
             function toggletab(tabnum)
             {
                 document.getElementsByClassName('active-tab')[0].classList.toggle('active-tab');
@@ -126,26 +144,27 @@
                     |-------------------|
 
                     <article class="result">
-                        <h4>PROGRAM TITLE</h4>
+                        <h4>PROCESSION</h4>
                         <ol type="1">
-                            <li>John Doe</li>
-                            <li>Jane Doe &amp; Oliver Twist</li>
-                            <li>Robert Dowrey Jr.</li>
+                            <li>CSE</li>
+                            <li>CE</li>
+                            <li>EEE</li>
                         </ol>
                     </article>
 
-                    -->
+  -->
 
   {% for x in winners %}
-  {% if x.winner11 != None %}
+  {% if x.winner11 != None or x.winnerbranch11 != None %}
 
                     <article class="result">
 
                         <h4>{{x.event.name}}</h4>
                         <ol type="1">
                             <li>
-                                <ul>
+                                <ul>{% if x.winner11 != None %}
                                   <li>{{x.winner11.name}} - {{x.winner11.get_semester_display}} {{x.winner11.get_branch_display}}</li>
+                                  {% endif %}
                                   {% if x.winner12 != None %}
                                     <li>{{x.winner12.name}} - {{x.winner12.get_semester_display}} {{x.winner12.get_branch_display}}</li>
                                   {% endif %}
@@ -158,13 +177,17 @@
                                   {% if x.winner15 != None %}
                                     <li>{{x.winner15.name}} - {{x.winner15.get_semester_display}} {{x.winner15.get_branch_display}}</li>
                                   {% endif %}
+                                  {% if x.winnerbranch11 != None %}
+                                    <li>{{x.winnerbranch11}} </li>
+                                  {% endif %}
                                 </ul>
                             </li>
-                              {% if x.winner21 != None %}
+                              {% if x.winner21 != None or x.winnerbranch21 != None %}
                             <li>
                                 <ul>
-
+                                  {% if x.winner21 != None %}
                                     <li>{{x.winner21.name}} - {{x.winner21.get_semester_display}} {{x.winner21.get_branch_display}}</li>
+                                    {% endif %}
 
                                   {% if x.winner12 != None %}
                                     <li>{{x.winner22.name}} - {{x.winner22.get_semester_display}} {{x.winner22.get_branch_display}}</li>
@@ -178,14 +201,19 @@
                                   {% if x.winner25 != None %}
                                     <li>{{x.winner25.name}} - {{x.winner25.get_semester_display}} {{x.winner25.get_branch_display}}</li>
                                   {% endif %}
+                                  {% if x.winnerbranch21 != None %}
+                                    <li>{{x.winnerbranch21}} </li>
+                                  {% endif %}
                                 </ul>
                             </li>
                               {% endif %}
-                              {% if x.winner31 != None %}
+                              {% if x.winner31 != None or x.winnerbranch31 != None %}
                             <li>
                                 <ul>
+                                  {% if x.winner31 != None %}
 
                                     <li>{{x.winner31.name}} - {{x.winner31.get_semester_display}} {{x.winner31.get_branch_display}}</li>
+                                    {% endif %}
 
                                   {% if x.winner32 != None %}
                                     <li>{{x.winner32.name}} - {{x.winner32.get_semester_display}} {{x.winner32.get_branch_display}}</li>
@@ -198,6 +226,9 @@
                                   {% endif %}
                                   {% if x.winner35 != None %}
                                     <li>{{x.winner35.name}} - {{x.winner35.get_semester_display}} {{x.winner35.get_branch_display}}</li>
+                                  {% endif %}
+                                  {% if x.winnerbranch31 != None %}
+                                    <li>{{x.winnerbranch31}} </li>
                                   {% endif %}
                                 </ul>
                             </li>
