@@ -10,10 +10,7 @@ from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import JSONField
 from django.utils.safestring import mark_safe
 
-import json
-from pygments import highlight
-from pygments.formatters.html import HtmlFormatter
-from pygments.lexers.data import JsonLexer
+
 from events.models import Participant, Event
 
 
@@ -65,7 +62,7 @@ class EventsResult(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
 
     winners = RichTextField(blank=True)
-    
+
     updated_on = models.DateTimeField(default=timezone.now)
 
     class Meta:
