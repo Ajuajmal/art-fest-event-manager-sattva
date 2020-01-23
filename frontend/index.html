@@ -11,6 +11,27 @@
         <link rel="stylesheet" type="text/css" href="icons/flaticon.css">
         <script type="text/javascript">
             
+            document.addEventListener('DOMContentLoaded', function() 
+            {
+                var root = document.getElementById('points-table');
+                var branchlist = document.getElementsByClassName('branch');
+                console.log(branchlist);
+                
+                for(var i = 0; i < branchlist.length-1; i++)
+                {
+                    for(var j = 0; j < branchlist.length - i - 1; j++)
+                    {
+                        if(parseInt(branchlist[j].children[2].textContent) < parseInt(branchlist[j+1].children[2].textContent))
+                        {
+                            root.insertBefore(branchlist[j+1], branchlist[j]);
+                        }
+                    }
+                }
+                                
+            }, false);
+            
+            
+            
             function toggletab(tabnum)
             {
                 document.getElementsByClassName('active-tab')[0].classList.toggle('active-tab');
