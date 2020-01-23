@@ -21,6 +21,17 @@ BRANCH = (
     (6, "MCA")
 )
 
+
+
+
+SEM = (
+    (1, "S2"),
+    (3, "S4"),
+    (5, "S6"),
+    (7, "S8"),
+    (8, "Semester"),
+)
+
 class BranchPoint(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     branch = models.IntegerField(choices=BRANCH, default=0)
@@ -38,14 +49,17 @@ class BranchPoint(models.Model):
 class EventsResult(models.Model):
     event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     winner11 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner11')
+    winnerbranch11 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
     winner12 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner12')
     winner13 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner13')
     winner14 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner14')
     winner21 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner21')
+    winnerbranch21 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
     winner22 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner22')
     winner23 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner23')
     winner24 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner24')
     winner31 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner31')
+    winnerbranch31 = models.CharField(max_length=200,null=True,blank=True, default=None,help_text='WARNING : Use this field when no data found about participant')
     winner32 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner32')
     winner33 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner33')
     winner34 = models.ForeignKey(Participant,on_delete=models.SET_NULL, null=True,blank=True, default=None, related_name='related_winner34')
