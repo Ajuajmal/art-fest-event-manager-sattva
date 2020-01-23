@@ -85,6 +85,14 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Dashboard</p>
             </a>
           </li>
+          {% if user.is_staff %}
+          <li {% if request.resolver_match.url_name == 'exportlist' %} class="active " {% endif %}>
+            <a href="{% url 'exportlist' %}">
+              <i class="nc-icon nc-cloud-download-93"></i>
+              <p>Participant Lists Export (ALL)</p>
+            </a>
+          </li>
+          {% endif %}
           {% if user.is_staff or user.profile.role == 2  %}
           <li {% if request.resolver_match.url_name == 'newregistration' %} class="active " {% endif %}>
             <a href="{% url 'newregistration' %}">

@@ -8,12 +8,13 @@ from django.conf import settings
 from django.views import generic
 from django.utils import timezone
 
+from django_tables2.export.views import ExportMixin
 from django_tables2 import SingleTableView,LazyPaginator
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from events.models import Participant,Event
-from .tables import ParticipantTable,ParticipantTableCapt,ParticipantTableAdmin
+from .tables import ParticipantTable,ParticipantTableCapt,ParticipantTableAdmin,ParticipantExportTable
 from results.models import BranchPoint
 from django_filters.views import FilterView
 
@@ -72,12 +73,11 @@ def dashviews(request):
 
 
 
-class ParticipantListView(LoginRequiredMixin,SingleTableMixin,FilterView):
+class ParticipantListView(LoginRequiredMixin,ExportMixin,SingleTableMixin,FilterView):
     model = Participant
     table_class = ParticipantTable
     template_name = 'tables.html'
     paginator_class = LazyPaginator
-
     filterset_class = ParticipantFilter
     def get_queryset(self):
         if self.request.user.is_staff:
@@ -85,6 +85,17 @@ class ParticipantListView(LoginRequiredMixin,SingleTableMixin,FilterView):
         else:
             return Participant.objects.filter(branch=self.request.user.profile.branch)
 
+class ParticipantListExportView(LoginRequiredMixin,ExportMixin,SingleTableMixin,FilterView):
+    model = Participant
+    table_class = ParticipantExportTable
+    template_name = 'tables.html'
+    paginator_class = LazyPaginator
+    filterset_class = ParticipantFilter
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Participant.objects.all()
+        else:
+            return Participant.objects.filter(branch=self.request.user.profile.branch)
 @login_required
 def participant_list(request):
     events = Event.objects.filter(venue__in =[1,2])
@@ -104,3 +115,7 @@ def payment_lists(request):
         return render(request, "pay_table.html", {
                 "table": table
             })
+class ExportPartList(ExportMixin, SingleTableView):
+        model = Participant
+        table_class = ParticipantTable
+        template_name = "django_tables2/bootstrap.html"
