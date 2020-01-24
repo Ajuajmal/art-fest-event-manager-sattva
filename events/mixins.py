@@ -10,7 +10,7 @@ class ExportCsvMixin:
         writer = csv.writer(response)
         writer.writerow(field_names)
         for obj in queryset:
-            row = writer.writerow([getattr(obj, field) if field != 'branch' and field != 'semester' else getattr(obj, 'get_branch_display')() if field != 'semester' else getattr(obj, 'get_semester_display')() for field in field_names])
+            row = writer.writerow([getattr(obj, field) if field != 'branch' and field != 'semester' and field != 'slot'  else getattr(obj, 'get_branch_display')() if field != 'semester' and field != 'slot'  else getattr(obj, 'get_semester_display')() if field != 'slot' else getattr(obj, 'get_slot_display')() for field in field_names])
         return response
 
     export_as_csv.short_description = "Export Selected"
