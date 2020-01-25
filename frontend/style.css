@@ -414,6 +414,22 @@ article.result > ol > li:nth-child(3) > ul > li:before
 
 @media only screen and (min-width: 800px)
 {
+    #tab-results::-webkit-scrollbar
+    {
+        width: 0.65rem;
+    }
+    #tab-results::-webkit-scrollbar-track
+    {
+        background: #cccccc;
+        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.9);
+        border: 1px solid #777777;
+    }
+    #tab-results::-webkit-scrollbar-thumb 
+    {
+        background-color: #ff0000;
+        border: 1px solid #333333;
+        border-radius: 1rem;
+    }
     
     #login-link
     {
